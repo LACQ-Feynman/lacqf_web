@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+:root {
+  --font-title: var(--font-exo), 'Exo', Arial, sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6, .font-title {
+    font-family: var(--font-title);
+    letter-spacing: 0.01em;
+    font-weight: 900;
+    text-transform: none;
+  }
+}
+
+@layer utilities {
+  @keyframes scroll-loop {
+    0% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll-loop {
+    animation: scroll-loop 30s linear infinite;
+  }
+}
