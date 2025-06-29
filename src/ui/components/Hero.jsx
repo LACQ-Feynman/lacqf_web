@@ -7,9 +7,9 @@ import { Play, Atom, ChevronsDown } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[70vh] flex items-center overflow-hidden pt-4 pb-8 sm:pt-8 sm:pb-12">
+    <section className="relative min-h-[70vh] flex items-center overflow-hidden pt-4 pb-16 sm:pt-8 sm:pb-20">
       <Image
-        src="/hero-bg.jpg"
+        src="https://placehold.co/1200x800?text=Hero+BG"
         alt="Ambiente de trabalho tecnológico"
         fill
         className="object-cover object-center opacity-20 pointer-events-none"

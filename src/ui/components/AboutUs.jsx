@@ -18,7 +18,7 @@ const AboutUs = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <Image
-              src="/images/history-1.jpg"
+              src="https://placehold.co/400x400?text=Imagem+1"
               alt="Pesquisa colaborativa"
               width={400}
               height={400}
@@ -26,14 +26,14 @@ const AboutUs = () => {
             />
             <div className="flex flex-col gap-4">
               <Image
-                src="/images/history-2.jpg"
+                src="https://placehold.co/200x200?text=Imagem+2"
                 alt="Workshop"
                 width={200}
                 height={200}
                 className="rounded-2xl object-cover shadow-md"
               />
               <Image
-                src="/images/history-3.jpg"
+                src="https://placehold.co/200x200?text=Imagem+3"
                 alt="Reuniões em equipe"
                 width={200}
                 height={200}
