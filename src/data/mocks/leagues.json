@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "abbr": "LATIQ",
+    "name": "Laboratório de Tecnologia da Informação Quântica",
+    "logo": "/images/partners/leagues/latiq.png"
+  },
+  {
+    "id": "2",
+    "abbr": "Quasar",
+    "name": "Liga Acadêmica de Computação Quântica da Universidade Federal da Paraíba",
+    "logo": "/images/partners/leagues/quasar.png"
+  },
+  {
+    "id": "3",
+    "abbr": "LACIQ",
+    "name": "Liga Acadêmica de Computação e Informação Quântica",
+    "logo": "/images/partners/leagues/laciq.png"
+  },
+  {
+    "id": "4",
+    "abbr": "LACICA",
+    "name": "Liga Acadêmica de Computação, Inovação e Código Aberto",
+    "logo": "/images/partners/leagues/lacica.png"
+  }
+]

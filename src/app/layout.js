@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Header from "@/ui/components/Header";
 import Footer from "@/ui/components/Footer";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import FloatingWhatsapp from "@/ui/components/FloatingWhatsapp";
 import SocialStack from "@/ui/components/SocialStack";
 
@@ -38,16 +39,18 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${exo.variable} bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300`}>
         <ThemeProvider>
-          <Header />
-          <main>
-            {children}
-          </main>
-          <Footer />
+          <LanguageProvider>
+            <Header />
+            <main>
+              {children}
+            </main>
+            <Footer />
 
-          <FloatingWhatsapp />
-          <SocialStack />
-          <Analytics />
-          <SpeedInsights />
+            <FloatingWhatsapp />
+            <SocialStack />
+            <Analytics />
+            <SpeedInsights />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

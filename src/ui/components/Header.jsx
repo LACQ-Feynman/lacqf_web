@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
 import LanguageDropdown from './LanguageDropdown';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Header = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,11 +53,11 @@ const Header = () => {
               <nav
                 className={`hidden md:flex gap-6 text-sm font-medium transition-colors duration-300`}
               >
-                <Link href="#about" className="hover:text-indigo-400 transition">Sobre</Link>
-                <Link href="#universities" className="hover:text-indigo-400 transition">Patrono</Link>
-                <Link href="#events" className="hover:text-indigo-400 transition">Eventos</Link>
-                <Link href="#sponsors" className="hover:text-indigo-400 transition">Patrocinadores</Link>
-                <Link href="#contact" className="hover:text-indigo-400 transition">Contato</Link>
+                <Link href="#about" className="hover:text-indigo-400 transition">{t('about')}</Link>
+                <Link href="#universities" className="hover:text-indigo-400 transition">{t('patron')}</Link>
+                <Link href="#events" className="hover:text-indigo-400 transition">{t('events')}</Link>
+                <Link href="#sponsors" className="hover:text-indigo-400 transition">{t('sponsors')}</Link>
+                <Link href="#contact" className="hover:text-indigo-400 transition">{t('contact')}</Link>
               </nav>
               <ThemeToggle />
               <LanguageDropdown />

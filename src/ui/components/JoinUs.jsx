@@ -2,36 +2,34 @@
 
 import React, { useState } from 'react';
 import { Rocket, Atom, GraduationCap, Users, ChevronDown } from 'lucide-react';
-
-const motivos = [
-  {
-    icon: <Rocket className="w-6 h-6 text-indigo-500" />,
-    titulo: 'Faça Parte de um Movimento Pioneiro',
-    texto:
-      'Junte-se a uma comunidade na vanguarda da pesquisa e inovação em computação quântica. Como membro da LACQ Feynman, você fará parte de um grupo dedicado a explorar tecnologias revolucionárias que vão moldar o futuro da computação.',
-  },
-  {
-    icon: <Atom className="w-6 h-6 text-indigo-500" />,
-    titulo: 'Acesse Pesquisas de Ponta',
-    texto:
-      'Participe de projetos avançados e pesquisas em computação quântica, contribuindo para inovações que estão mudando o mundo. A LACQ Feynman oferece uma plataforma para estudantes e profissionais explorarem novas ideias e gerarem impacto real.',
-  },
-  {
-    icon: <GraduationCap className="w-6 h-6 text-indigo-500" />,
-    titulo: 'Oportunidades Educacionais',
-    texto:
-      'Oferecemos workshops, palestras e cursos para equipar você com o conhecimento e as habilidades necessárias para se destacar em computação quântica. Esteja você começando ou já com experiência, nossos programas educacionais vão impulsionar seu avanço.',
-  },
-  {
-    icon: <Users className="w-6 h-6 text-indigo-500" />,
-    titulo: 'Networking e Colaboração',
-    texto:
-      'A LACQ Feynman conecta você a especialistas, profissionais do setor e outros estudantes, promovendo oportunidades de colaboração e troca de conhecimento. Construa relações que vão impulsionar seu crescimento acadêmico e profissional.',
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const JoinUs = () => {
   const [openIdx, setOpenIdx] = useState(0);
+  const { t } = useLanguage();
+
+  const motivos = [
+    {
+      icon: <Rocket className="w-6 h-6 text-indigo-500" />,
+      titulo: t('pioneerTitle'),
+      texto: t('pioneerText'),
+    },
+    {
+      icon: <Atom className="w-6 h-6 text-indigo-500" />,
+      titulo: t('researchTitle'),
+      texto: t('researchText'),
+    },
+    {
+      icon: <GraduationCap className="w-6 h-6 text-indigo-500" />,
+      titulo: t('educationTitle'),
+      texto: t('educationText'),
+    },
+    {
+      icon: <Users className="w-6 h-6 text-indigo-500" />,
+      titulo: t('networkingTitle'),
+      texto: t('networkingText'),
+    },
+  ];
 
   return (
     <section className="bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 py-20 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
@@ -39,10 +37,10 @@ const JoinUs = () => {
         {/* Esquerda: Título */}
         <div className="md:pr-8">
           <h2 className="text-4xl md:text-5xl font-title font-bold text-left text-white mb-6 drop-shadow-lg">
-            Por que entrar para a LACQ Feynman?
+            {t('joinUsTitle')}
           </h2>
           <p className="text-lg text-gray-300 font-light max-w-md">
-            Descubra os benefícios de fazer parte de uma comunidade inovadora, colaborativa e apaixonada por computação quântica.
+            {t('joinUsDescription')}
           </p>
         </div>
         {/* Direita: FAQ/Accordion */}

@@ -4,17 +4,20 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Play, Atom, ChevronsDown } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative min-h-[70vh] flex items-center overflow-hidden pt-4 pb-16 sm:pt-8 sm:pb-20">
-      <Image
+      {/* <Image
         src="https://placehold.co/1200x800?text=Hero+BG"
         alt="Ambiente de trabalho tecnológico"
         fill
         className="object-cover object-center opacity-20 pointer-events-none"
         priority
-      />
+      /> */}
 
       <div className="relative z-10 w-full max-w-2xl px-4 sm:px-10 flex flex-col items-start justify-center text-left mx-0 sm:mx-16 bg-white/80 dark:bg-gray-900/80 rounded-xl backdrop-blur-md py-6 sm:py-8 gap-4 sm:gap-7">
         <motion.span
@@ -23,7 +26,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="text-xs sm:text-sm font-semibold text-indigo-400 mb-1 tracking-wide uppercase"
         >
-          Descubra seu potencial quântico
+          {t('heroSubtitle')}
         </motion.span>
 
         <motion.h1
@@ -32,9 +35,9 @@ export default function Hero() {
           transition={{ delay: 0.1, duration: 0.5 }}
           className="text-2xl sm:text-4xl md:text-5xl font-title text-gray-900 dark:text-white leading-tight drop-shadow-lg mb-1 sm:mb-2"
         >
-          <span className="block mb-1">LACQ Feynman</span>
-          <span className="block mb-1">Liga Acadêmica de</span>
-          <span className="block text-indigo-500">Computação Quântica</span>
+          <span className="block mb-1">{t('heroTitle1')}</span>
+          <span className="block mb-1">{t('heroTitle2')}</span>
+          <span className="block text-indigo-500">{t('heroTitle3')}</span>
         </motion.h1>
 
         <motion.p
@@ -43,7 +46,7 @@ export default function Hero() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="text-sm sm:text-base text-gray-900 dark:text-white font-bold mb-2 sm:mb-2"
         >
-          Quer se destacar no universo quântico? Junte-se à LACQ Feynman!
+          {t('heroDescription')}
         </motion.p>
 
         <motion.div
@@ -58,7 +61,7 @@ export default function Hero() {
             style={{ boxShadow: 'none' }}
           >
             <Play className="w-5 h-5" />
-            Explorar
+            {t('exploreButton')}
           </Link>
           <Link
             href="#contato"
@@ -66,7 +69,7 @@ export default function Hero() {
             style={{ boxShadow: 'none' }}
           >
             <Atom className="w-5 h-5" />
-            Junte-se à Liga
+            {t('joinButton')}
           </Link>
         </motion.div>
       </div>

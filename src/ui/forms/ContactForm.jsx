@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema, initialValues } from '@/schemas/contactSchema';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
   
   const handleSubmit = async (values, { resetForm }) => {
     try {
@@ -32,7 +34,7 @@ const ContactForm = () => {
               <Field
                 type="text"
                 name="name"
-                placeholder="Nome"
+                placeholder={t('namePlaceholder')}
                 className="w-full border border-gray-300 dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               />
               <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
@@ -41,7 +43,7 @@ const ContactForm = () => {
               <Field
                 type="text"
                 name="phone"
-                placeholder="Telefone"
+                placeholder={t('phonePlaceholder')}
                 className="w-full border border-gray-300 dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               />
               <ErrorMessage name="phone" component="div" className="text-red-500 text-sm mt-1" />
@@ -51,7 +53,7 @@ const ContactForm = () => {
             <Field
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={t('emailPlaceholder')}
               className="w-full border border-gray-300 dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             />
             <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
@@ -61,7 +63,7 @@ const ContactForm = () => {
             <Field
               type="text"
               name="subject"
-              placeholder="Assunto"
+              placeholder={t('subjectPlaceholder')}
               className="w-full border border-gray-300 dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             />
             <ErrorMessage name="subject" component="div" className="text-red-500 text-sm mt-1" />
@@ -71,7 +73,7 @@ const ContactForm = () => {
             <Field
               as="textarea"
               name="message"
-              placeholder="Mensagem"
+              placeholder={t('messagePlaceholder')}
               rows={5}
               className="w-full border border-gray-300 dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             />
@@ -83,7 +85,7 @@ const ContactForm = () => {
             disabled={isSubmitting || loading}
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
-            {loading ? "Enviando..." : "Enviar"}
+            {loading ? t('sendingText') : t('sendButton')}
           </button>
         </Form>
       )}

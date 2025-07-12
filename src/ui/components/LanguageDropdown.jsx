@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CountryFlag from 'react-country-flag';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const languages = [
   { code: 'pt-BR', label: 'Português', country: 'BR' },
@@ -9,7 +10,8 @@ const languages = [
 
 export default function LanguageDropdown() {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(languages[0]);
+  const { currentLanguage, changeLanguage } = useLanguage();
+  const selected = languages.find(lang => lang.code === currentLanguage) || languages[0];
 
   return (
     <div className="relative ml-2">
@@ -28,7 +30,7 @@ export default function LanguageDropdown() {
             <button
               key={lang.code}
               className="flex items-center gap-2 w-full px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition text-left"
-              onClick={() => { setSelected(lang); setOpen(false); }}
+              onClick={() => { changeLanguage(lang.code); setOpen(false); }}
             >
               <CountryFlag countryCode={lang.country} svg style={{ width: '1.3em', height: '1.3em', borderRadius: '50%' }} />
               <span className="text-sm">{lang.label}</span>

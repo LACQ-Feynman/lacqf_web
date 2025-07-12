@@ -1,0 +1,114 @@
+[
+  {
+    "id": "1",
+    "abbr": "ITA",
+    "logo": "/images/partners/universities/ita.png",
+    "name": "Instituto Tecnológico de Aeronáutica",
+    "url": "https://www.ita.br"
+  },
+  {
+    "id": "2",
+    "abbr": "USP",
+    "logo": "/images/partners/universities/usp.png",
+    "name": "Universidade de São Paulo",
+    "url": "https://www.usp.br"
+  },
+  {
+    "id": "3",
+    "abbr": "UNIFESP",
+    "logo": "/images/partners/universities/unifesp.png",
+    "name": "Universidade Federal do Estado de São Paulo",
+    "url": "https://unifesp.br"
+  },
+  {
+    "id": "4",
+    "abbr": "Unicamp",
+    "logo": "/images/partners/universities/unicamp.png",
+    "name": "Universidade Estadual de Campinas",
+    "url": "https://unicamp.br"
+  },
+  {
+    "id": "5",
+    "abbr": "UFRGS",
+    "logo": "/images/partners/universities/ufrgs.png",
+    "name": "Universidade Federal do Rio Grande do Sul",
+    "url": "https://ufrgs.br"
+  },
+  {
+    "id": "6",
+    "abbr": "INF",
+    "logo": "/images/partners/universities/inf.png",
+    "name": "Institudo de Informática UFRGS",
+    "url": "https://inf.br"
+  },
+  {
+    "id": "7",
+    "abbr": "UFSC",
+    "logo": "/images/partners/universities/ufsc.png",
+    "name": "Universidade Federal de Santa Catarina",
+    "url": "https://ufsc.br"
+  },
+  {
+    "id": "8",
+    "abbr": "UFPR",
+    "logo": "/images/partners/universities/ufpr.png",
+    "name": "Universidade Federal do Paraná",
+    "url": "https://ufpr.br"
+  },
+  {
+    "id": "9",
+    "abbr": "UFRJ",
+    "logo": "/images/partners/universities/ufrj.png",
+    "name": "Universidade Federal do Rio de Janeiro",
+    "url": "https://ufrj.br"
+  },
+  {
+    "id": "10",
+    "abbr": "UFF",
+    "logo": "/images/partners/universities/uff.png",
+    "name": "Universidade Federal Fluminense",
+    "url": "https://uff.br"
+  },
+  {
+    "id": "11",
+    "abbr": "PUCRS",
+    "logo": "/images/partners/universities/pucrs.png",
+    "name": "Pontifícia Universidade Católica do Rio Grande do Sul",
+    "url": "https://pucrs.br"
+  },
+  {
+    "id": "12",
+    "abbr": "PUC-Rio",
+    "logo": "/images/partners/universities/pucrio.png",
+    "name": "Pontifícia Universidade Católica do Rio de Janeiro",
+    "url": "https://puc-rio.br"
+  },
+  {
+    "id": "13",
+    "abbr": "UFPE",
+    "logo": "/images/partners/universities/ufpe.png",
+    "name": "Universidade Federal de Pernambuco",
+    "url": "https://ufpe.br"
+  },
+  {
+    "id": "14",
+    "abbr": "UFPB",
+    "logo": "/images/partners/universities/ufpb.png",
+    "name": "Universidade Federal da Paraíba",
+    "url": "https://ufpb.br"
+  },
+  {
+    "id": "15",
+    "abbr": "UEA",
+    "logo": "/images/partners/universities/uea.png",
+    "name": "Universidade do Estado do Amazonas",
+    "url": "https://uea.br"
+  },
+  {
+    "id": "16",
+    "abbr": "UFG",
+    "logo": "/images/partners/universities/ufg.png",
+    "name": "Universidade Federal de Goiás",
+    "url": "https://ufg.br"
+  }
+]

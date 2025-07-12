@@ -72,7 +72,7 @@ const Patronum = () => {
             {motivos.map((item) => (
               <li key={item.titulo} className="flex gap-2 items-start">
                 <span className="text-indigo-400 mt-1">✔</span>
-                <div>
+    <div>
                   <span className="font-semibold text-white">{item.titulo}</span>
                   <br />
                   <span className="text-gray-400">{item.texto}</span>
@@ -86,7 +86,7 @@ const Patronum = () => {
             </span>
           </div>
         </div>
-      </div>
+    </div>
     </section>
   );
 };

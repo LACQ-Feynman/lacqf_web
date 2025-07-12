@@ -9,7 +9,6 @@ import CoreValues from "@/ui/components/CoreValues";
 import Universities from "@/ui/components/Universities";
 import JoinUs from "@/ui/components/JoinUs";
 import Events from "@/ui/components/Events";
-import Sponsors from "@/ui/components/Sponsors";
 import Contact from "@/ui/components/Contact";
 
 export default function Home() {
@@ -24,7 +23,6 @@ export default function Home() {
       <Universities />
       <JoinUs />
       <Events />
-      <Sponsors />
       <Contact /> 
     </>
   );

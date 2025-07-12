@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "name": "Microsoft",
+    "logo": "/images/partners/master/microsoft.png",
+    "url": "https://microsoft.com"
+  },
+  {
+    "id": "2",
+    "name": "Intel",
+    "logo": "/images/partners/master/intel.png",
+    "url": "https://intel.com"
+  }
+]

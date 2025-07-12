@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Quantuloop",
+    "logo": "/images/partners/companies/quantuloop.png",
+    "url": "https://quantuloop.com"
+  },
+  {
+    "id": "2",
+    "name": "MultiCortex",
+    "logo": "/images/partners/companies/multicortex.png",
+    "url": "https://multicortex.com"
+  },
+  {
+    "id": "3",
+    "name": "Qubits-brasil",
+    "logo": "/images/partners/companies/qubits-brasil.png",
+    "url": "https://quantumtech.com"
+  },
+  {
+    "id": "4",
+    "name": "Nau Live Spaces",
+    "logo": "/images/partners/companies/nau.png",
+    "url": "https://nau.com.br"
+  },
+  {
+    "id": "5",
+    "name": "TECNOPUC",
+    "logo": "/images/partners/companies/tecnopuc.png",
+    "url": "https://tecnopuc.pucrs.br"
+  }
+]

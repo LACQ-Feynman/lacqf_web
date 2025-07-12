@@ -1,7 +1,12 @@
+'use client';
+
 import ContactForm from '@/ui/forms/ContactForm';
 import { Mail } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="contato"
@@ -12,13 +17,13 @@ export default function Contact() {
         <div className="flex flex-col justify-center items-start text-left gap-6 md:pr-8">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-title flex items-center gap-3 drop-shadow-lg">
             <Mail className="w-8 h-8 text-indigo-500" />
-            Fale com a gente
+            {t('contactTitle')}
           </h2>
           <p className="text-lg text-gray-300">
-            Estamos aqui para esclarecer suas dúvidas, ouvir sugestões ou iniciar uma colaboração com a Liga Nacional de Computação Quântica.
+            {t('contactDescription')}
           </p>
           <div className="mt-4">
-            <span className="block text-sm text-gray-400 mb-1">E-mail de contato</span>
+            <span className="block text-sm text-gray-400 mb-1">{t('contactEmailLabel')}</span>
             <a
               href="mailto:contato@lacqfeynman.org"
               className="inline-block text-indigo-400 font-mono text-lg bg-indigo-900/30 px-3 py-1.5 rounded-lg border border-indigo-500/30 hover:bg-indigo-800/40 transition shadow"
