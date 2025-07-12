@@ -18,7 +18,7 @@ const groupTitles = {
   master: 'Parceiros',
   icts: 'ICTs',
   companies: 'Empresas',
-  universities: 'Universidades',
+  universities: 'Universidades de nossos membros',
   institutes: 'Ligas'
 };
 
