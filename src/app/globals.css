@@ -1,0 +1,551 @@
+@import "tailwindcss";
+
+/* Theme variables — Light mode */
+:root {
+  /* Primary Color System */
+  --primary: #7C3AED;        /* Purple-600 - Botões principais, links, CTAs importantes */
+  --primary-foreground: #FFFFFF;
+  --primary-light: #8B5CF6;  /* Purple-500 - Hover states, elementos chamativos */
+  --primary-dark: #7C3AED;   /* Maintained for consistency */
+  
+  /* Secondary Color System */
+  --secondary: #3B82F6;      /* Blue-500 - Botões secundários, elementos de suporte */
+  --secondary-foreground: #FFFFFF;
+  --secondary-light: #60A5FA; /* Blue-400 - For dark mode compatibility */
+  
+  /* Accent Color System */
+  --accent: #8B5CF6;         /* Purple-500 - Destaques, hover states */
+  --accent-foreground: #FFFFFF;
+  
+  /* Background System */
+  --background: #FFFFFF;     /* Fundo principal da página */
+  --surface: #F8F7FC;        /* Cards, modais, containers elevados */
+  --surface-secondary: #F8F7FC;
+  --feynman-card-bg: #F8F7FC; /* Background para o card da imagem de Feynman */
+  
+  /* Text System */
+  --text: #1E1B29;          /* Texto principal, títulos */
+  --text-secondary: #525266; /* Texto secundário, descrições */
+  --text-muted: #6B7280;
+  
+  /* Border System */
+  --border: #E5E0F7;         /* Bordas de elementos, divisores */
+  --border-light: #E5E0F7;
+  --border-medium: #D6D0E8;
+  
+  /* State Colors */
+  --success: #10B981;        /* Mensagens de sucesso, estados positivos */
+  --success-foreground: #FFFFFF;
+  --warning: #F59E0B;        /* Alertas, avisos, estados de atenção */
+  --warning-foreground: #FFFFFF;
+  
+  /* Legacy support - mapped to new system */
+  --bg-primary: var(--background);
+  --bg-secondary: var(--surface);
+  --bg-tertiary: var(--surface);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-secondary);
+  --border-light: var(--border);
+  --border-medium: var(--border-medium);
+  
+  /* Shadows with better contrast for light mode */
+  --shadow-sm: 0 1px 2px 0 rgb(124 58 237 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(124 58 237 / 0.1), 0 2px 4px -2px rgb(124 58 237 / 0.1);
+}
+
+/* Theme variables — Dark mode */
+.dark {
+  /* Primary Color System */
+  --primary: #9F7AEA;        /* Purple-400 - Botões principais, links, CTAs */
+  --primary-foreground: #FFFFFF;
+  --primary-light: #A78BFA;  /* Purple-400 - Hover states, elementos chamativos */
+  --primary-dark: #9F7AEA;   /* Maintained for consistency */
+  
+  /* Secondary Color System */
+  --secondary: #60A5FA;      /* Blue-400 - Botões secundários, elementos de suporte */
+  --secondary-foreground: #FFFFFF;
+  --secondary-light: #60A5FA; /* Blue-400 - Maintained for consistency */
+  
+  /* Accent Color System */
+  --accent: #A78BFA;         /* Purple-400 - Destaques, hover states */
+  --accent-foreground: #FFFFFF;
+  
+  /* Background System */
+  --background: #0D0B14;     /* Fundo principal da página */
+  --surface: #161422;        /* Cards, modais, containers elevados */
+  --surface-secondary: #161422;
+  --feynman-card-bg: #806c83; /* Background para o card da imagem de Feynman */
+  
+  /* Text System */
+  --text: #F5F5F7;          /* Texto principal, títulos */
+  --text-secondary: #C4C4D1; /* Texto secundário, descrições */
+  --text-muted: #A1A1AA;
+  
+  /* Border System */
+  --border: #2A2538;         /* Bordas de elementos, divisores */
+  --border-light: #2A2538;
+  --border-medium: #3A3248;
+  
+  /* State Colors */
+  --success: #34D399;        /* Mensagens de sucesso, estados positivos */
+  --success-foreground: #0D0B14;
+  --warning: #FBBF24;        /* Alertas, avisos, estados de atenção */
+  --warning-foreground: #0D0B14;
+  
+  /* Legacy support - mapped to new system */
+  --bg-primary: var(--background);
+  --bg-secondary: var(--surface);
+  --bg-tertiary: var(--surface);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-secondary);
+  --border-light: var(--border);
+  --border-medium: var(--border-medium);
+  
+  /* Shadows with better contrast for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.6), 0 2px 4px -2px rgb(0 0 0 / 0.5);
+}
+
+/* Utilities built on CSS variables */
+
+@layer utilities {
+  /* Background System */
+  .bg-background { background-color: var(--background); }
+  .bg-surface { background-color: var(--surface); }
+  .bg-surface-secondary { background-color: var(--surface-secondary); }
+  .bg-theme-primary { background-color: var(--bg-primary); }
+  .bg-theme-secondary { background-color: var(--bg-secondary); }
+  .bg-theme-tertiary { background-color: var(--bg-tertiary); }
+  
+  /* Text System */
+  .text-primary { color: var(--text); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-muted { color: var(--text-muted); }
+  .text-theme-primary { color: var(--text-primary); }
+  .text-theme-secondary { color: var(--text-secondary); }
+  .text-theme-muted { color: var(--text-muted); }
+  
+  /* Border System */
+  .border-primary { border-color: var(--border); }
+  .border-light { border-color: var(--border-light); }
+  .border-medium { border-color: var(--border-medium); }
+  .border-theme-light { border-color: var(--border-light); }
+  .border-theme-medium { border-color: var(--border-medium); }
+  
+  /* Component Colors */
+  .text-primary-component { color: var(--primary); }
+  .bg-primary-component { background-color: var(--primary); }
+  .text-primary-foreground { color: var(--primary-foreground); }
+  
+  .text-secondary-component { color: var(--secondary); }
+  .bg-secondary-component { background-color: var(--secondary); }
+  .text-secondary-foreground { color: var(--secondary-foreground); }
+  
+  .text-accent-component { color: var(--accent); }
+  .bg-accent-component { background-color: var(--accent); }
+  .text-accent-foreground { color: var(--accent-foreground); }
+  
+  /* State Colors */
+  .text-success { color: var(--success); }
+  .bg-success { background-color: var(--success); }
+  .text-success-foreground { color: var(--success-foreground); }
+  
+  .text-warning { color: var(--warning); }
+  .bg-warning { background-color: var(--warning); }
+  .text-warning-foreground { color: var(--warning-foreground); }
+  
+  /* Language Dropdown Styles */
+  .lang-dropdown-btn, 
+  .lang-dropdown-item {
+    color: var(--text) !important;
+  }
+  
+  .dark .lang-dropdown-btn,
+  .dark .lang-dropdown-item {
+    color: var(--text-secondary) !important;
+  }
+  
+  /* Language Dropdown Hover Effect */
+  .lang-dropdown-btn:hover {
+    background-color: #7C3AEDB3 !important; /* 70% opacity of primary purple #7C3AED */
+  }
+  
+  .dark .lang-dropdown-btn:hover {
+    background-color: #9F7AEA80 !important; /* 50% opacity of dark mode primary purple #9F7AEA */
+  }
+  
+  .lang-dropdown-item:hover {
+    background-color: #7C3AEDB3 !important; /* 70% opacity of primary purple #7C3AED */
+  }
+  
+  .dark .lang-dropdown-item:hover {
+    background-color: #9F7AEA80 !important; /* 50% opacity of dark mode primary purple #9F7AEA */
+  }
+  
+}
+
+/* View Transitions — circular expansion animation on theme toggle */
+
+/* Disable default view transition animations */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Custom view transition animation for theme switching */
+::view-transition-old(root) {
+  animation: 0s ease-out 1 normal;
+}
+
+::view-transition-new(root) {
+  animation: theme-transition 0.7s ease-in-out;
+}
+
+@keyframes theme-transition {
+  from {
+    clip-path: circle(0px at var(--animation-x, 50%) var(--animation-y, 50%));
+  }
+  to {
+    clip-path: circle(100vmax at var(--animation-x, 50%) var(--animation-y, 50%));
+  }
+}
+
+/* Base components — typography and base element colors */
+
+@layer base {
+  h1, h2, h3, h4, h5, h6, .font-title {
+    font-family: var(--font-orbitron), 'Orbitron', Arial, sans-serif;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--text);
+  }
+  
+  /* Body com novas cores do tema */
+  body {
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Base element colors */
+  p, span, div, a, button, input, textarea, select {
+    color: inherit;
+  }
+  
+  /* Headings use primary text color */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text);
+  }
+  
+  /* Links use primary color */
+  a {
+    color: var(--primary);
+  }
+  
+  /* Focus states */
+  *:focus {
+    outline-color: var(--primary);
+    outline-width: 2px;
+    outline-offset: 2px;
+  }
+}
+
+/* Quantum gradients based on the current palette */
+
+@layer utilities {
+  /* Primary gradients using new palette */
+  .bg-gradient-quantum-primary {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+  }
+  
+  .bg-gradient-quantum-secondary {
+    background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary) 100%);
+  }
+  
+  .bg-gradient-quantum-tertiary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  }
+  
+  .bg-gradient-quantum-energy {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+  }
+  
+  .bg-gradient-quantum-wave {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+  }
+  
+  /* Surface gradients for cards and elevated elements */
+  .bg-gradient-surface {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-secondary) 100%);
+  }
+  
+  /* Hero background gradients */
+  .bg-gradient-hero {
+    background: linear-gradient(135deg, var(--background) 0%, var(--surface) 50%, var(--background) 100%);
+  }
+  
+  /* Animações preservadas */
+  .animate-scroll-loop {
+    animation: scroll-loop 30s linear infinite;
+  }
+  
+  .animate-quantum-pulse {
+    animation: quantum-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* New utility classes for the new color system */
+  .text-quantum-primary { color: var(--primary); }
+  .text-quantum-secondary { color: var(--secondary); }
+  .text-quantum-accent { color: var(--accent); }
+  .text-quantum-surface { color: var(--surface); }
+  .text-quantum-text { color: var(--text); }
+  .text-quantum-text-secondary { color: var(--text-secondary); }
+
+  /* Social link hover effects */
+  .social-link { 
+    color: var(--text-secondary); 
+    transition: color 0.2s ease;
+  }
+  
+  .social-link:hover { 
+    color: var(--primary) !important; 
+  }
+
+  /* Theme toggle button styles */
+  .theme-toggle-light, .theme-toggle-dark { 
+    background-color: var(--surface) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+  }
+
+  /* Theme indicator dot styles */
+  .theme-indicator-light { 
+    background-color: #f59e0b !important;
+  }
+
+  .theme-indicator-dark { 
+    background-color: #10b981 !important;
+  }
+  
+  /* Navigation header styles */
+  .nav-header-scrolled {
+    background-color: var(--background) !important;
+    background: var(--background)90 !important;
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+  }
+
+  .nav-header-transparent {
+    background-color: transparent !important;
+    color: var(--text) !important;
+  }
+
+  /* Skip link styles */
+  .skip-link {
+    background-color: var(--surface) !important;
+    color: var(--text) !important;
+    border-color: var(--primary) !important;
+  }
+
+  /* Navigation link styles */
+  .nav-link {
+    color: var(--text) !important;
+  }
+
+  /* Mobile menu button styles */
+  .mobile-menu-btn {
+    color: var(--text) !important;
+    --tw-ring-color: var(--primary) !important;
+  }
+
+  /* General gradient section background */
+  .section-gradient-bg {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%) !important;
+  }
+
+  /* Animation delays */
+  .animate-delay-1s {
+    animation-delay: 1s !important;
+  }
+
+  .animate-delay-2s {
+    animation-delay: 2s !important;
+  }
+
+  /* Progress bar styling — transform-based for smooth updates */
+  .scroll-progress-bar {
+    background-color: var(--primary) !important;
+    transform-origin: left;
+    will-change: transform;
+    transition: transform 0.06s linear;
+  }
+
+  /* Input glow group */
+  .input-glow-group {
+    position: relative !important;
+  }
+  .input-glow-group::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--primary), transparent);
+    filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: scaleX(0.9);
+    pointer-events: none;
+  }
+  .input-glow-group:focus-within::before {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  /* Discover component styling removed - use .section-gradient-bg */
+
+  .discover-title {
+    color: var(--text-primary) !important;
+  }
+
+  .discover-text {
+    color: var(--text-secondary) !important;
+  }
+
+  /* Gradient backgrounds for discover items */
+  .discover-item-gradient-red {
+    background: linear-gradient(to bottom right, #ef4444, #dc2626) !important;
+  }
+
+  .discover-item-gradient-indigo {
+    background: linear-gradient(to bottom right, #6366f1, #4f46e5) !important;
+  }
+
+  .discover-item-gradient-purple {
+    background: linear-gradient(to bottom right, #8b5cf6, #7c3aed) !important;
+  }
+  
+  .discover-content-gradient-red {
+    background: linear-gradient(to right, #ef4444, #dc2626) !important;
+  }
+
+  .discover-content-gradient-indigo {
+    background: linear-gradient(to right, #6366f1, #4f46e5) !important;
+  }
+
+  .discover-content-gradient-purple {
+    background: linear-gradient(to right, #8b5cf6, #7c3aed) !important;
+  }
+}
+
+@keyframes scroll-loop {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes quantum-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Mobile preview wrapper styles - fills full height when scaled */
+.mobile-preview-wrapper {
+  position: fixed !important;
+  top: 50% !important;  /* Start from center to account for scale transformation */
+  left: 50% !important;
+  width: 844px !important; /* Keep same width - typical mobile width like iPhone */
+  height: 250vh !important; /* Unscaled height that will appear as 100vh when scaled to 40% (250vh * 0.4 = 100vh) */
+  min-height: 200vh !important; /* Minimum height for good scroll range */
+  border: 10px solid black !important;
+  border-radius: 40px !important;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3) !important;
+  overflow: auto !important; /* Enable scrolling */
+  background: var(--background) !important;
+  z-index: 9999 !important;
+  transition: transform 0.3s ease !important;
+  overscroll-behavior: auto !important;
+  transform: translate(-50%, -50%) scale(0.4) !important; /* Center both horizontally and vertically and scale the mobile view */
+}
+
+.tablet-preview-wrapper {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 1024px !important;
+  height: 180vh !important;
+  min-height: 150vh !important;
+  border: 8px solid black !important;
+  border-radius: 28px !important;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3) !important;
+  overflow: auto !important;
+  background: var(--background) !important;
+  z-index: 9999 !important;
+  transition: transform 0.3s ease !important;
+  overscroll-behavior: auto !important;
+  transform: translate(-50%, -50%) scale(0.6) !important;
+}
+
+/* When mobile preview is active, ensure main content area is appropriately sized */
+body.mobile-preview-active {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Make sure inner content can scroll properly */
+.mobile-preview-wrapper > * {
+  min-height: 100% !important;
+  overflow: visible !important;
+}
+
+.mobile-preview-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 4px;
+  background: black;
+  border-radius: 2px;
+  z-index: 10000;
+}
+
+.desktop-view {
+  /* Default desktop view - no special styling needed */
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: auto !important;
+  height: auto !important;
+  border: none !important;
+  border-radius: none !important;
+  box-shadow: none !important;
+  overflow: auto !important;
+  background: inherit !important;
+  z-index: auto !important;
+  margin: 0 !important;
+}
+
+/* Animation for fade in */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
