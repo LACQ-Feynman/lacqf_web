@@ -16,6 +16,9 @@ const Navigation = ({ sections }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useLanguage();
 
+  // Get base path for GitHub Pages compatibility
+  const basePath = process.env.BASE_PATH || '';
+
   // Use Intersection Observer API for more efficient active section detection
   useEffect(() => {
     let scrollThrottled = false;
@@ -93,7 +96,7 @@ const Navigation = ({ sections }) => {
               className="flex items-center gap-3 text-lg font-bold font-title focus:outline-none focus:ring-2 focus:rounded nav-link"
             >
               <Image
-                src="/images/lacqf/logo.webp"
+                src={`${basePath}/images/lacqf/logo.webp`}
                 alt="LACQ Feynman Logo"
                 width={32}
                 height={32}

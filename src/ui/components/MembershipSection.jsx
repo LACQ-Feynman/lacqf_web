@@ -18,6 +18,9 @@ const MembershipSection = ({ id }) => {
     const [openIdx, setOpenIdx] = useState(0);
     const { t } = useLanguage();
 
+    // Get base path for GitHub Pages compatibility
+    const basePath = process.env.BASE_PATH || '';
+
     const motivos = [
         {
             icon: <Rocket className="w-6 h-6 text-primary-500" />,
@@ -151,7 +154,7 @@ const MembershipSection = ({ id }) => {
                         {/* Logo + Text Section - Left */}
                         <div className="flex items-center gap-4 md:gap-6">
                             <img
-                                src="/images/lacqf/logo completa.webp"
+                                src={`${basePath}/images/lacqf/logo completa.webp`}
                                 alt="LACQ Feynman Logo Completa"
                                 className="h-12 w-auto object-contain"
                             />

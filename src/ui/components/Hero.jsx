@@ -8,8 +8,11 @@ export default function Hero({ id }) {
   const { isDark } = useTheme();
   const { t } = useLanguage();
 
+  // Get base path for GitHub Pages compatibility
+  const basePath = process.env.BASE_PATH || '';
+
   // Video sources based on theme
-  const videoSrc = isDark ? '/videos/Hero dark.mp4' : '/videos/Hero light.mp4';
+  const videoSrc = isDark ? `${basePath}/videos/Hero dark.mp4` : `${basePath}/videos/Hero light.mp4`;
 
   return (
     <section
