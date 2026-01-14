@@ -2,9 +2,6 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Label } from '@/ui/label';
-import { Input } from '@/ui/input';
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 const BottomGradient = () => {
@@ -20,7 +17,7 @@ const BottomGradient = () => {
 const LabelInputContainer = ({ children, className }) => {
   // We wrap label+input in a group to attach the glow via :focus-within.
   return (
-    <div className={cn('flex w-full flex-col space-y-2 input-glow-group', className)}>
+    <div className={`flex w-full flex-col space-y-2 input-glow-group ${className || ''}`}>
       {children}
     </div>
   );
@@ -92,96 +89,121 @@ export function SignupFormDemo() {
       >
         <div className="grid grid-cols-2 gap-4">
           <LabelInputContainer>
-            <Label 
-              htmlFor="firstname" 
+            <label
+              htmlFor="firstname"
               className="text-sm font-medium"
               style={{ color: 'var(--text)' }}
             >
               {t('firstName')}
-            </Label>
-            <Input
+            </label>
+            <input
               id="firstname"
               placeholder="João"
               type="text"
               value={formData.firstName}
               onChange={handleInputChange('firstName')}
-              className="transition-all duration-300"
+              className="w-full px-3 py-2 rounded-md border transition-all duration-300 focus:ring-2 focus:ring-primary"
+              style={{
+                backgroundColor: 'var(--background)',
+                borderColor: 'var(--border)',
+                color: 'var(--text)'
+              }}
               required
             />
           </LabelInputContainer>
           <LabelInputContainer>
-            <Label
+            <label
               htmlFor="lastname"
               className="text-sm font-medium"
               style={{ color: 'var(--text)' }}
             >
               {t('lastName')}
-            </Label>
-            <Input
+            </label>
+            <input
               id="lastname"
               placeholder="Silva"
               type="text"
               value={formData.lastName}
               onChange={handleInputChange('lastName')}
-              className="transition-all duration-300"
+              className="w-full px-3 py-2 rounded-md border transition-all duration-300 focus:ring-2 focus:ring-primary"
+              style={{
+                backgroundColor: 'var(--background)',
+                borderColor: 'var(--border)',
+                color: 'var(--text)'
+              }}
               required
             />
           </LabelInputContainer>
         </div>
-        
+
         <LabelInputContainer>
-          <Label
+          <label
             htmlFor="email"
             className="text-sm font-medium"
             style={{ color: 'var(--text)' }}
           >
             {t('email')}
-          </Label>
-          <Input
+          </label>
+          <input
             id="email"
             placeholder="joao@exemplo.com"
             type="email"
             value={formData.email}
             onChange={handleInputChange('email')}
-            className="transition-all duration-300"
+            className="w-full px-3 py-2 rounded-md border transition-all duration-300 focus:ring-2 focus:ring-primary"
+            style={{
+              backgroundColor: 'var(--background)',
+              borderColor: 'var(--border)',
+              color: 'var(--text)'
+            }}
             required
           />
         </LabelInputContainer>
-        
+
         <LabelInputContainer>
-          <Label
+          <label
             htmlFor="password"
             className="text-sm font-medium"
             style={{ color: 'var(--text)' }}
           >
             {t('password')}
-          </Label>
-          <Input
+          </label>
+          <input
             id="password"
             placeholder="••••••••"
             type="password"
             value={formData.password}
             onChange={handleInputChange('password')}
-            className="transition-all duration-300"
+            className="w-full px-3 py-2 rounded-md border transition-all duration-300 focus:ring-2 focus:ring-primary"
+            style={{
+              backgroundColor: 'var(--background)',
+              borderColor: 'var(--border)',
+              color: 'var(--text)'
+            }}
             required
           />
         </LabelInputContainer>
-        
+
         <LabelInputContainer>
-          <Label
+          <label
             htmlFor="confirmPassword"
             className="text-sm font-medium"
             style={{ color: 'var(--text)' }}
           >
             {t('confirmPassword')}
-          </Label>
-          <Input
+          </label>
+          <input
             id="confirmPassword"
             placeholder="••••••••"
             type="password"
             value={formData.confirmPassword}
             onChange={handleInputChange('confirmPassword')}
-            className="transition-all duration-300"
+            className="w-full px-3 py-2 rounded-md border transition-all duration-300 focus:ring-2 focus:ring-primary"
+            style={{
+              backgroundColor: 'var(--background)',
+              borderColor: 'var(--border)',
+              color: 'var(--text)'
+            }}
             required
           />
         </LabelInputContainer>
