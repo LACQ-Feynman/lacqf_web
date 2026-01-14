@@ -1,31 +1,30 @@
 import React from "react";
 import Image from "next/image";
 import { getAssetPath } from '@/utils/assets';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const motivos = [
+const motivosKeys = [
   {
-    titulo: "Pioneirismo em Computação Quântica",
-    texto:
-      "Feynman foi um dos primeiros a propor o uso de sistemas quânticos para simular fenômenos quânticos, lançando as bases do que hoje conhecemos como computação quântica.",
+    tituloKey: "pioneerTitle",
+    textoKey: "pioneerText",
   },
   {
-    titulo: "Popularização da Ciência",
-    texto:
-      "Com seu talento único para explicar conceitos complexos de forma clara e acessível, Feynman inspirou estudantes e cientistas, alinhando-se à missão de democratizar o conhecimento.",
+    tituloKey: "popularizationTitle",
+    textoKey: "popularizationText",
   },
   {
-    titulo: "Curiosidade e Interdisciplinaridade",
-    texto:
-      "Feynman era conhecido por sua curiosidade insaciável e por conectar diferentes áreas do saber, refletindo o espírito colaborativo da computação quântica.",
+    tituloKey: "curiosityTitle",
+    textoKey: "curiosityText",
   },
   {
-    titulo: "Carinho pelo Brasil",
-    texto:
-      "Feynman tinha grande afeto pelo Brasil e costumava tocar samba nas rodas no Rio de Janeiro, reforçando seu vínculo cultural e humano com o país.",
+    tituloKey: "brazilTitle",
+    textoKey: "brazilText",
   },
 ];
 
 const Patronum = ({ id }) => {
+  const { t } = useLanguage();
+
   return (
     <section
       id={id}
@@ -48,10 +47,10 @@ const Patronum = ({ id }) => {
               className="text-4xl lg:text-5xl font-title font-bold mb-8 leading-tight"
               style={{ color: 'var(--text-primary)' }}
             >
-              Por que Richard Feynman é nosso patrono?
+              {t('patronTitle')}
             </h2>
             <ul className="space-y-6 mb-10">
-              {motivos.map((item, index) => (
+              {motivosKeys.map((item, index) => (
                 <li
                   key={index}
                   className="flex gap-4 items-start p-4 rounded-xl border backdrop-blur-sm"
@@ -72,13 +71,13 @@ const Patronum = ({ id }) => {
                       className="text-lg font-title font-semibold mb-2"
                       style={{ color: 'var(--text-primary)' }}
                     >
-                      {item.titulo}
+                      {t(item.tituloKey)}
                     </h3>
                     <p
                       className="leading-relaxed"
                       style={{ color: 'var(--text-secondary)' }}
                     >
-                      {item.texto}
+                      {t(item.textoKey)}
                     </p>
                   </div>
                 </li>
@@ -93,7 +92,7 @@ const Patronum = ({ id }) => {
                 background: 'linear-gradient(to right, var(--primary), var(--primary-light))'
               }}
             >
-              Conheça o legado de Feynman
+              {t('feynmanLegacy')}
             </a>
           </div>
 

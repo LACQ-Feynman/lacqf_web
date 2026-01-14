@@ -1,20 +1,23 @@
 import React from "react";
 import { CalendarDays, ExternalLink } from "lucide-react";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const events = [
   {
-    title: "Data Science Summit 2024",
-    date: "Outubro 2024",
+    titleKey: "event1Title",
+    dateKey: "event1Date",
     link: "https://example.com/data-science-summit",
   },
   {
-    title: "VII Workshop de Computação Quântica - UFSC",
-    date: "Outubro 2024",
+    titleKey: "event2Title",
+    dateKey: "event2Date",
     link: "https://example.com/workshop-quantica-ufsc",
   },
 ];
 
 const Events = ({ id }) => {
+  const { t } = useLanguage();
+
   return (
     <section
       id={id}
@@ -26,13 +29,13 @@ const Events = ({ id }) => {
             className="text-4xl md:text-5xl font-title font-bold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            Eventos Acadêmicos
+            {t('eventsTitle')}
           </h2>
           <p
             className="text-lg max-w-3xl mx-auto"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Acompanhe os eventos mais importantes da comunidade de Computação Quântica no Brasil.
+            {t('eventsSubtitle')}
           </p>
         </div>
 
@@ -52,7 +55,7 @@ const Events = ({ id }) => {
                     className="text-xl font-title font-semibold mb-2"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    {event.title}
+                    {t(event.titleKey)}
                   </h3>
                   <div
                     className="flex items-center"
@@ -62,7 +65,7 @@ const Events = ({ id }) => {
                       className="w-5 h-5 mr-2"
                       style={{ color: 'var(--primary)' }}
                     />
-                    <span className="font-medium">{event.date}</span>
+                    <span className="font-medium">{t(event.dateKey)}</span>
                   </div>
                 </div>
                 <div className="md:ml-4">
@@ -75,7 +78,7 @@ const Events = ({ id }) => {
                       background: 'linear-gradient(to right, var(--primary), var(--primary-dark))'
                     }}
                   >
-                    Ver detalhes
+                    {t('eventsDetails')}
                     <ExternalLink className="ml-2 w-4 h-4" />
                   </a>
                 </div>
@@ -92,7 +95,7 @@ const Events = ({ id }) => {
           }}
         >
           <p>
-            Mais eventos serão adicionados em breve. Fique atento.
+            {t('eventsComingSoon')}
           </p>
         </div>
       </div>

@@ -7,6 +7,7 @@ import {
   Cpu,
   Users,
 } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
  
 
 const ConventionalCards = ({ values }) => (
@@ -50,43 +51,38 @@ const ConventionalCards = ({ values }) => (
  
 
 const CoreValues = ({ id }) => {
+  const { t } = useLanguage();
 
   const values = [
     {
       icon: <Eye className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: 'Nossa Visão',
-      description:
-        'Na LACQ Feynman, buscamos conectar acadêmicos e profissionais apaixonados por computação quântica, promovendo um ambiente colaborativo que impulsiona as tecnologias do futuro.',
+      title: t('visionTitle'),
+      description: t('visionText'),
     },
     {
       icon: <FlaskConical className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: 'Pesquisa Pioneira',
-      description:
-        'Somos dedicados ao avanço da pesquisa de ponta em computação quântica, explorando soluções inovadoras para resolver alguns dos desafios mais complexos da área.',
+      title: t('researchTitle'),
+      description: t('researchText'),
     },
     {
       icon: <GraduationCap className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: 'Excelência Educacional',
-      description:
-        'Oferecemos uma ampla variedade de oportunidades educacionais, incluindo workshops, palestras e cursos, para capacitar a próxima geração de líderes e especialistas em computação quântica.',
+      title: t('educationTitle'),
+      description: t('educationText'),
     },
     {
       icon: <Share2 className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: 'Oportunidades de Networking',
-      description:
-        'A LACQ Feynman atua como um hub para conectar estudantes, professores e profissionais do setor, promovendo parcerias impactantes e troca de conhecimento.',
+      title: t('networkingTitle'),
+      description: t('networkingText'),
     },
     {
       icon: <Cpu className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: 'Inovação na Prática',
-      description:
-        'Nossos projetos visam ultrapassar os limites da computação quântica, desenvolvendo aplicações práticas capazes de revolucionar indústrias e tecnologias.',
+      title: t('innovationTitle'),
+      description: t('innovationText'),
     },
     {
       icon: <Users className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: 'Ambiente Colaborativo',
-      description:
-        'Acreditamos no poder da colaboração, unindo mentes diversas para fomentar a criatividade e acelerar avanços na pesquisa em computação quântica.',
+      title: t('collaborationTitle'),
+      description: t('collaborationText'),
     },
   ];
 
@@ -103,13 +99,13 @@ const CoreValues = ({ id }) => {
             className="text-4xl md:text-5xl font-title font-bold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            Nossos Valores
+            {t('valuesTitle')}
           </h2>
           <p
             className="text-lg"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Paixão por moldar o futuro por meio do conhecimento, inovação e colaboração.
+            {t('valuesSubtitle')}
           </p>
         </div>
 
