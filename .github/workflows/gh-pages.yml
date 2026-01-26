@@ -42,7 +42,8 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          name: github-pages
+          path: out
 
   deploy:
     runs-on: ubuntu-latest

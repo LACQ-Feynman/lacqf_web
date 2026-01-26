@@ -39,10 +39,10 @@ const AboutUs = ({ id }) => {
             </div>
           </div>
 
-          <div className="order-1 lg:order-2 grid grid-cols-2 gap-4 sm:gap-6">
+          <div className="order-1 lg:order-2 grid grid-cols-[0.9fr_1.1fr] gap-4 sm:gap-6">
             <div className="relative">
               <Image
-                src="https://placehold.co/600x400?text=Quantum+Research"
+                src="/images/lacqf/quantum research.webp"
                 alt="Pesquisa colaborativa"
                 width={600}
                 height={400}
@@ -53,7 +53,7 @@ const AboutUs = ({ id }) => {
             <div className="space-y-6">
               <div className="relative">
                 <Image
-                  src="https://placehold.co/300x200?text=Workshop"
+                  src="/images/lacqf/workshop.webp"
                   alt="Workshop"
                   width={300}
                   height={200}
@@ -63,7 +63,7 @@ const AboutUs = ({ id }) => {
               </div>
               <div className="relative">
                 <Image
-                  src="https://placehold.co/300x200?text=Team+Meeting"
+                  src="/images/lacqf/team meeting.webp"
                   alt="Reuniões em equipe"
                   width={300}
                   height={200}
