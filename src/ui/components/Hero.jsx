@@ -21,7 +21,6 @@ export default function Hero({ id }) {
       <video
         key={videoSrc} // Force re-render when theme changes
         autoPlay
-        loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
