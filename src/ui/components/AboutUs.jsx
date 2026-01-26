@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { ActivitySquare, BookOpen, Briefcase } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getAssetPath } from '@/utils/assets';
 
 const AboutUs = ({ id }) => {
   const { t } = useLanguage();
@@ -42,7 +43,7 @@ const AboutUs = ({ id }) => {
           <div className="order-1 lg:order-2 grid grid-cols-[0.9fr_1.1fr] gap-4 sm:gap-6">
             <div className="relative">
               <Image
-                src="/images/lacqf/quantum research.webp"
+                src={getAssetPath("/images/lacqf/quantum research.webp")}
                 alt="Pesquisa colaborativa"
                 width={600}
                 height={400}
@@ -53,7 +54,7 @@ const AboutUs = ({ id }) => {
             <div className="space-y-6">
               <div className="relative">
                 <Image
-                  src="/images/lacqf/workshop.webp"
+                  src={getAssetPath("/images/lacqf/workshop.webp")}
                   alt="Workshop"
                   width={300}
                   height={200}
@@ -63,7 +64,7 @@ const AboutUs = ({ id }) => {
               </div>
               <div className="relative">
                 <Image
-                  src="/images/lacqf/team meeting.webp"
+                  src={getAssetPath("/images/lacqf/team meeting.webp")}
                   alt="Reuniões em equipe"
                   width={300}
                   height={200}

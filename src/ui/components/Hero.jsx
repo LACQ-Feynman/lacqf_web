@@ -3,16 +3,14 @@
 import React from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getAssetPath } from '@/utils/assets';
 
 export default function Hero({ id }) {
   const { isDark } = useTheme();
   const { t } = useLanguage();
 
-  // Get base path for GitHub Pages compatibility
-  const basePath = process.env.BASE_PATH || '';
-
   // Video sources based on theme
-  const videoSrc = isDark ? `${basePath}/videos/Hero dark.mp4` : `${basePath}/videos/Hero light.mp4`;
+  const videoSrc = isDark ? getAssetPath('/videos/Hero dark.mp4') : getAssetPath('/videos/Hero light.mp4');
 
   return (
     <section
