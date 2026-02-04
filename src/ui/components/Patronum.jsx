@@ -5,20 +5,20 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const motivosKeys = [
   {
-    tituloKey: "pioneerTitle",
-    textoKey: "pioneerText",
+    tituloKey: "patronPioneerTitle",
+    textoKey: "patronPioneerText",
   },
   {
-    tituloKey: "popularizationTitle",
-    textoKey: "popularizationText",
+    tituloKey: "patronPopularizationTitle",
+    textoKey: "patronPopularizationText",
   },
   {
-    tituloKey: "curiosityTitle",
-    textoKey: "curiosityText",
+    tituloKey: "patronCuriosityTitle",
+    textoKey: "patronCuriosityText",
   },
   {
-    tituloKey: "brazilTitle",
-    textoKey: "brazilText",
+    tituloKey: "patronBrazilTitle",
+    textoKey: "patronBrazilText",
   },
 ];
 

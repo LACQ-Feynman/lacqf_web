@@ -5,22 +5,25 @@ import Layout from "@/ui/components/Layout";
 import Navigation from "@/ui/components/Navigation";
 
 import Hero from "@/ui/components/Hero";
+import WhoWeAre from "@/ui/components/WhoWeAre";
 import AboutUs from "@/ui/components/AboutUs";
 import Patronum from "@/ui/components/Patronum";
 import CoreValues from "@/ui/components/CoreValues";
 import Universities from "@/ui/components/Universities";
+import UpcomingEvents from "@/ui/components/UpcomingEvents";
 import Events from "@/ui/components/Events";
 import Partners from "@/ui/components/Partners";
 import MembershipSection from "@/ui/components/MembershipSection";
 
 export default function Home() {
   const sections = useMemo(() => [
-    { id: 'about', title: 'About' },
-    // Patron and Values are accessible via scroll/context of About
+    { id: 'whoWeAre', title: 'Quem Somos' },
+    { id: 'about', title: 'Quantum Coalition' },
     { id: 'universities', title: 'Universities' },
-    { id: 'events', title: 'Events' },
-    { id: 'membership', title: 'Join Us' },
-    { id: 'sponsors', title: 'Sponsors' },
+    { id: 'upcomingEvents', title: 'Próximos Eventos' },
+    { id: 'events', title: 'Eventos Realizados' },
+    { id: 'membership', title: 'Junte-se' },
+    { id: 'sponsors', title: 'Parceiros' },
   ], []);
 
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -62,11 +65,13 @@ export default function Home() {
         <Navigation sections={sections} />
         <div id="main-content" tabIndex="-1">
           <Hero id="hero" />
+          <WhoWeAre id="whoWeAre" />
           <Partners id="sponsors" />
           <AboutUs id="about" />
           <Patronum id="patronum" />
           <CoreValues id="values" />
           <Universities id="universities" />
+          <UpcomingEvents id="upcomingEvents" />
           <Events id="events" />
           <MembershipSection id="membership" />
         </div>

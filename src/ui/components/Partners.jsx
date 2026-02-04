@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useTheme } from '@/contexts/ThemeContext';
 
 import companies from '@/data/mocks/companies.json';
 import universities from '@/data/mocks/universities.json';
@@ -26,6 +27,8 @@ const groupTitles = {
 const displayOrder = ['master', 'icts', 'companies', 'universities', 'institutes'];
 
 export default function Partners({ id }) {
+  const { isDark } = useTheme();
+
   // Partner logos grouped by type; images use Next's optimizer.
   return (
     <section
@@ -57,7 +60,7 @@ export default function Partners({ id }) {
                   className="flex items-center justify-center hover:scale-105 transition-transform duration-300 p-6 bg-theme-secondary rounded-xl shadow-lg border border-theme-light"
                 >
                   <Image
-                    src={getAssetPath(partner.logo)}
+                    src={getAssetPath((isDark && partner.logoDark) ? partner.logoDark : partner.logo)}
                     alt={partner.name}
                     width={150}
                     height={100}

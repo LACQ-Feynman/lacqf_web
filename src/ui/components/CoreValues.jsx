@@ -56,33 +56,33 @@ const CoreValues = ({ id }) => {
   const values = [
     {
       icon: <Eye className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: t('visionTitle'),
-      description: t('visionText'),
+      title: t('valuesVisionTitle'),
+      description: t('valuesVisionText'),
     },
     {
       icon: <FlaskConical className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: t('researchTitle'),
-      description: t('researchText'),
+      title: t('valuesResearchTitle'),
+      description: t('valuesResearchText'),
     },
     {
       icon: <GraduationCap className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: t('educationTitle'),
-      description: t('educationText'),
+      title: t('valuesEducationTitle'),
+      description: t('valuesEducationText'),
     },
     {
       icon: <Share2 className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: t('networkingTitle'),
-      description: t('networkingText'),
+      title: t('valuesNetworkingTitle'),
+      description: t('valuesNetworkingText'),
     },
     {
       icon: <Cpu className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: t('innovationTitle'),
-      description: t('innovationText'),
+      title: t('valuesInnovationTitle'),
+      description: t('valuesInnovationText'),
     },
     {
       icon: <Users className="w-8 h-8" style={{ color: 'var(--primary)' }} />,
-      title: t('collaborationTitle'),
-      description: t('collaborationText'),
+      title: t('valuesCollaborationTitle'),
+      description: t('valuesCollaborationText'),
     },
   ];
 

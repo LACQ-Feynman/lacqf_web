@@ -29,13 +29,13 @@ const Events = ({ id }) => {
             className="text-4xl md:text-5xl font-title font-bold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            {t('eventsTitle')}
+            {t('pastEventsTitle')}
           </h2>
           <p
             className="text-lg max-w-3xl mx-auto"
             style={{ color: 'var(--text-secondary)' }}
           >
-            {t('eventsSubtitle')}
+            {t('pastEventsSubtitle')}
           </p>
         </div>
 

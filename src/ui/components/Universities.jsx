@@ -3,13 +3,17 @@
 import React from "react";
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import universities from '@/data/mocks/universities.json';
 import { getAssetPath } from '@/utils/assets';
 
-const universityLogos = universities.map((university) => getAssetPath(university.logo));
-
 const Universities = ({ id }) => {
   const { t } = useLanguage();
+  const { isDark } = useTheme();
+
+  const universityLogos = universities.map((university) => 
+    getAssetPath((isDark && university.logoDark) ? university.logoDark : university.logo)
+  );
 
   return (
     <section
