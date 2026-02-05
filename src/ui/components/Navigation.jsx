@@ -22,7 +22,7 @@ const Navigation = ({ sections }) => {
   // Use Intersection Observer API for more efficient active section detection
   useEffect(() => {
     let scrollThrottled = false;
-    
+
     const handleScroll = () => {
       if (!scrollThrottled) {
         scrollThrottled = true;
@@ -37,7 +37,7 @@ const Navigation = ({ sections }) => {
     window.addEventListener('scroll', handleScroll);
 
     // Set up Intersection Observer for section detection
-    const sectionElements = sections.map(section => 
+    const sectionElements = sections.map(section =>
       document.getElementById(section.id)
     ).filter(Boolean);
 
@@ -49,9 +49,9 @@ const Navigation = ({ sections }) => {
           }
         });
       },
-      { 
-        threshold: 0.5, 
-        rootMargin: '-20% 0px -70% 0px' 
+      {
+        threshold: 0.5,
+        rootMargin: '-20% 0px -70% 0px'
       }
     );
 
@@ -82,11 +82,10 @@ const Navigation = ({ sections }) => {
       </a>
 
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled 
-            ? 'backdrop-blur-md border-b py-2 nav-header-scrolled' 
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled
+            ? 'backdrop-blur-md border-b py-2 nav-header-scrolled'
             : 'py-4 nav-header-transparent'
-        }`}
+          }`}
         role="banner"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,6 +106,9 @@ const Navigation = ({ sections }) => {
 
             {/* Mobile menu button — toggles an inline drawer below the header */}
             <div className="flex items-center gap-4">
+              <div className="md:hidden flex items-center">
+                <AnimatedThemeToggler />
+              </div>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 rounded-lg focus:outline-none focus:ring-2 focus:rounded mobile-menu-btn"
@@ -117,10 +119,10 @@ const Navigation = ({ sections }) => {
               </button>
 
               <div className="hidden md:flex items-center gap-6">
-                <DesktopNavigation 
-                  sections={sections} 
-                  activeSection={activeSection} 
-                  scrollToSection={scrollToSection} 
+                <DesktopNavigation
+                  sections={sections}
+                  activeSection={activeSection}
+                  scrollToSection={scrollToSection}
                 />
                 <div className="flex items-center gap-4">
                   <AnimatedThemeToggler />
@@ -131,12 +133,12 @@ const Navigation = ({ sections }) => {
           </div>
 
           {/* The mobile drawer appears below the header when open */}
-          <MobileNavigation 
-            sections={sections} 
-            activeSection={activeSection} 
-            isMobileMenuOpen={isMobileMenuOpen} 
-            setIsMobileMenuOpen={setIsMobileMenuOpen} 
-            scrollToSection={scrollToSection} 
+          <MobileNavigation
+            sections={sections}
+            activeSection={activeSection}
+            isMobileMenuOpen={isMobileMenuOpen}
+            setIsMobileMenuOpen={setIsMobileMenuOpen}
+            scrollToSection={scrollToSection}
           />
         </div>
       </header>

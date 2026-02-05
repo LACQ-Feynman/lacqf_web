@@ -1,6 +1,10 @@
 export function getTranslationKey(sectionId) {
   // Map specific section IDs to translation keys when they differ.
   switch (sectionId) {
+    case 'whoWeAre':
+      return 'whoWeAreTitle';
+    case 'upcomingEvents':
+      return 'upcomingEventsTitle';
     case 'patronum':
       return 'patron';
     case 'universities':
