@@ -23,11 +23,12 @@ export default function Hero({ id }) {
         autoPlay
         muted
         playsInline
+        loop
         className="absolute inset-0 w-full h-full object-cover"
         style={{ filter: 'brightness(0.7)' }}
       >
-        {/* WebM format (better compression) */}
-        <source src={videoSrc.replace('.mp4', '.webm')} type="video/webm" />
+        {/* WebM format (better compression) - Only for dark theme as light.webm is missing */}
+        {isDark && <source src={videoSrc.replace('.mp4', '.webm')} type="video/webm" />}
         {/* MP4 fallback for broader compatibility */}
         <source src={videoSrc} type="video/mp4" />
         {/* Fallback for browsers that don't support video */}

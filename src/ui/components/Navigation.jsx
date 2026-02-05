@@ -9,15 +9,13 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { AnimatedThemeToggler } from './ThemeToggle';
 import DesktopNavigation from './Navigation/DesktopNavigation';
 import MobileNavigation from './Navigation/MobileNavigation';
+import { getAssetPath } from '@/utils/assets';
 
 const Navigation = ({ sections }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useLanguage();
-
-  // Get base path for GitHub Pages compatibility
-  const basePath = process.env.BASE_PATH || '';
 
   // Use Intersection Observer API for more efficient active section detection
   useEffect(() => {
@@ -83,8 +81,8 @@ const Navigation = ({ sections }) => {
 
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled
-            ? 'backdrop-blur-md border-b py-2 nav-header-scrolled'
-            : 'py-4 nav-header-transparent'
+          ? 'backdrop-blur-md border-b py-2 nav-header-scrolled'
+          : 'py-4 nav-header-transparent'
           }`}
         role="banner"
       >
@@ -95,7 +93,7 @@ const Navigation = ({ sections }) => {
               className="flex items-center gap-3 text-lg font-bold font-title focus:outline-none focus:ring-2 focus:rounded nav-link"
             >
               <Image
-                src={`${basePath}/images/lacqf/logo.webp`}
+                src={getAssetPath("/images/lacqf/logo.webp")}
                 alt="LACQ Feynman Logo"
                 width={32}
                 height={32}

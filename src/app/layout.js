@@ -37,23 +37,27 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} bg-background text-foreground transition-colors duration-300`}>
-          {/* App-wide providers; Language wraps Theme so UI strings load before theming effects. */}
-          <LanguageProvider>
-            <ThemeProvider>
-              <div id="mobile-preview-container">
-                {/* Page content lives here; global overlays appear after. */}
-                <main>
-                  {children}
-                </main>
-              </div>
+        {/* App-wide providers; Language wraps Theme so UI strings load before theming effects. */}
+        <LanguageProvider>
+          <ThemeProvider>
+            <div id="mobile-preview-container">
+              {/* Page content lives here; global overlays appear after. */}
+              <main>
+                {children}
+              </main>
+            </div>
 
-              {/* Global UI helpers and telemetry */}
-              <FloatingWhatsapp />
-              <SocialStack />
-              <Analytics />
-              <SpeedInsights />
-            </ThemeProvider>
-          </LanguageProvider>
+            {/* Global UI helpers and telemetry */}
+            <FloatingWhatsapp />
+            <SocialStack />
+            {process.env.VERCEL && (
+              <>
+                <Analytics />
+                <SpeedInsights />
+              </>
+            )}
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

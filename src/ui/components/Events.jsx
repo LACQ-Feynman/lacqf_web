@@ -3,19 +3,20 @@ import { CalendarDays, ExternalLink, ChevronDown, ChevronUp } from "lucide-react
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { getAssetPath } from "@/utils/assets";
 
 const events = [
   {
     titleKey: "event3Title",
     dateKey: "event3Date",
     descriptionKey: "event3Description",
-    image: "/images/lacqf/Summer Schoo.webp",
+    image: getAssetPath("/images/lacqf/Summer Schoo.webp"),
   },
   {
     titleKey: "event4Title",
     dateKey: "event4Date",
     descriptionKey: "event4Description",
-    image: "/images/lacqf/Quantum Year Wrap-Up.webp",
+    image: getAssetPath("/images/lacqf/Quantum Year Wrap-Up.webp"),
   },
   {
     titleKey: "event1Title",
