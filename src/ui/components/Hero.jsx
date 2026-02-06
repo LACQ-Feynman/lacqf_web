@@ -23,7 +23,6 @@ export default function Hero({ id }) {
         autoPlay
         muted
         playsInline
-        loop
         className="absolute inset-0 w-full h-full object-cover"
         style={{ filter: 'brightness(0.7)' }}
       >

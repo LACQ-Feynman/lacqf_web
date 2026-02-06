@@ -9,14 +9,18 @@ import {
     ChevronDown,
     UserPlus,
     Youtube,
-    BookOpen
+    BookOpen,
+    MessageCircle
 } from 'lucide-react';
+import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SignupForm from './SignupForm';
 
 const MembershipSection = ({ id }) => {
     const [openIdx, setOpenIdx] = useState(0);
     const { t } = useLanguage();
+
+    const whatsappGroupLink = "https://chat.whatsapp.com/Gs7ZFId4iBwKFIrbhDyGIX?mode=gi_t";
 
     // Get base path for GitHub Pages compatibility
     const basePath = process.env.BASE_PATH || '';
@@ -40,7 +44,23 @@ const MembershipSection = ({ id }) => {
         {
             icon: <Users className="w-6 h-6 text-primary-500" />,
             titulo: t('networkingTitle'),
-            texto: t('networkingText'),
+            texto: (
+                <div className="space-y-4">
+                    <p>{t('networkingText')}</p>
+                    {/* PC CTA: Only visible on large screens */}
+                    <div className="hidden lg:block">
+                        <a
+                            href={whatsappGroupLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-xs font-bold rounded-lg transition-colors shadow-sm"
+                        >
+                            <IconBrandWhatsapp className="w-4 h-4" />
+                            {t('whatsappGroupButton')}
+                        </a>
+                    </div>
+                </div>
+            ),
         },
     ];
 
@@ -83,9 +103,25 @@ const MembershipSection = ({ id }) => {
                     <h2 className="text-4xl md:text-5xl font-title font-bold mb-4">
                         <span className="text-primary">{t('joinCommunityTitle').split(' ')[0]}</span> {t('joinCommunityTitle').substring(t('joinCommunityTitle').indexOf(' ') + 1)}
                     </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                         {t('joinCommunitySubtitle')}
                     </p>
+
+                    {/* Mobile CTA: Only visible on small screens */}
+                    <div className="lg:hidden mb-8">
+                        <div className="inline-block p-4 rounded-2xl bg-surface border border-border shadow-sm">
+                            <p className="text-sm font-medium mb-3">{t('whatsappGroupCTA')}</p>
+                            <a
+                                href={whatsappGroupLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all shadow-md active:scale-95"
+                            >
+                                <IconBrandWhatsapp className="w-6 h-6" />
+                                {t('whatsappGroupButton')}
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Main Content: Split Layout (Reasons + Signup) */}
@@ -127,7 +163,7 @@ const MembershipSection = ({ id }) => {
                                         />
                                     </button>
                                     <div
-                                        className={`transition-all duration-300 ease-in-out ${openIdx === idx ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'
+                                        className={`transition-all duration-300 ease-in-out ${openIdx === idx ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
                                             }`}
                                     >
                                         <div className="px-6 pb-5 pt-0 text-muted-foreground text-sm leading-relaxed pl-[4.5rem]">
@@ -150,22 +186,22 @@ const MembershipSection = ({ id }) => {
 
                 {/* Footer Strip: Resources (Discover More) */}
                 <div className="border-t border-border pt-12">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
                         {/* Logo + Text Section - Left */}
-                        <div className="flex items-center gap-4 md:gap-6">
+                        <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 text-center sm:text-left">
                             <img
                                 src={`${basePath}/images/lacqf/logo completa.webp`}
                                 alt="LACQ Feynman Logo Completa"
                                 className="h-12 w-auto object-contain"
                             />
-                            <div className="text-left">
+                            <div className="text-center sm:text-left">
                                 <h4 className="text-xl font-title font-semibold mb-1">{t('exploreMoreTitle')}</h4>
                                 <p className="text-sm text-muted-foreground">{t('exploreMoreSubtitle')}</p>
                             </div>
                         </div>
 
                         {/* Resources Section - Right */}
-                        <div className="flex gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
                             {resources.map((res, idx) => {
                                 const colorClasses = {
                                     red: "bg-red-500/10 text-red-500 hover:shadow-red-500/5",
@@ -180,7 +216,7 @@ const MembershipSection = ({ id }) => {
                                         href={res.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`group flex items-center gap-3 px-5 py-3 rounded-xl bg-surface border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 ${activeColorClass.replace('bg-', 'hover:shadow-')}`}
+                                        className={`group flex items-center justify-center sm:justify-start gap-3 px-5 py-3 rounded-xl bg-surface border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 w-full sm:w-auto ${activeColorClass.replace('bg-', 'hover:shadow-')}`}
                                     >
                                         <div className={`p-2 rounded-lg group-hover:scale-110 transition-transform ${activeColorClass.split(' ').slice(0, 2).join(' ')}`}>
                                             {res.icon}

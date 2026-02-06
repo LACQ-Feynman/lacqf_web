@@ -53,6 +53,7 @@
   "pioneerTitle": "Faça Parte de um Movimento Pioneiro",
   "pioneerText": "Junte-se a uma comunidade na vanguarda da pesquisa e inovação em computação quântica. Como membro da LACQ Feynman, você fará parte de um grupo dedicado a explorar tecnologias revolucionárias que vão moldar o futuro da computação.",
   "benefitsResearchTitle": "Acesse Pesquisas de Ponta",
+  "researchTitle": "Acesse Pesquisas de Ponta",
   "researchTitleAlt": "Acesse Pesquisas de Ponta",
   "researchText": "Participe de projetos avançados e pesquisas em computação quântica, contribuindo para inovações que estão mudando o mundo. A LACQ Feynman oferece uma plataforma para estudantes e profissionais explorarem novas ideas e gerarem impacto real.",
   "educationTitle": "Oportunidades Educacionais",
@@ -87,7 +88,7 @@
   "patronBrazilText": "Feynman tinha grande afeto pelo Brasil e costumava tocar samba nas rodas no Rio de Janeiro, reforçando seu vínculo cultural e humano com o país.",
   "feynmanLegacy": "Conheça o legado de Feynman",
   "valuesTitle": "Nossos Valores",
-  "valuesSubtitle": "Paixão por moldar o futuro por meio do conhecimento, inovação e colaboração.",
+  "valuesSubtitle": "Paixão por moldear o futuro por meio do conhecimento, inovação e colaboração.",
   "valuesVisionTitle": "Nossa Visão",
   "valuesVisionText": "Na LACQ Feynman, buscamos conectar acadêmicos e profissionais apaixonados por computação quântica, promovendo um ambiente colaborativo que impulsiona as tecnologias do futuro.",
   "valuesResearchTitle": "Pesquisa Pioneira",
@@ -133,5 +134,7 @@
   "whyLACQFTitle": "Por que a LACQ Feynman?",
   "whyLACQFSubtitle": "Descubra os benefícios exclusivos de ser um membro da nossa liga acadêmica.",
   "joinCommunityTitle": "Junte-se à Comunidade",
-  "joinCommunitySubtitle": "Faça parte da revolução quântica. Uma única conta, acesso a todo o ecossistema."
+  "joinCommunitySubtitle": "Faça parte da revolução quântica. Uma única conta, acesso a todo o ecossistema.",
+  "whatsappGroupCTA": "Entre no nosso grupo do WhatsApp e conecte-se com outros entusiastas!",
+  "whatsappGroupButton": "Participar do Grupo"
 }

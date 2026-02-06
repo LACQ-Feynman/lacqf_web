@@ -37,6 +37,7 @@
   "opportunitiesWorkshopsDescription": "Learn quantum computing from basic concepts to programming on platforms like Qiskit and Cirq.",
   "opportunitiesCareerTitle": "Internships and Career",
   "opportunitiesCareerDescription": "Secure positions at research centers and partner startups through our network of connections.",
+  "researchTitle": "Access Cutting-Edge Research",
   "contactTitle": "Get in touch",
   "contactDescription": "We are here to clarify your doubts, hear suggestions or start a collaboration with the National Quantum Computing League.",
   "contactEmailLabel": "Contact email",
@@ -132,5 +133,7 @@
   "whyLACQFTitle": "Why LACQ Feynman?",
   "whyLACQFSubtitle": "Discover the exclusive benefits of being a member of our academic league.",
   "joinCommunityTitle": "Join the Community",
-  "joinCommunitySubtitle": "Be part of the quantum revolution. One account, access to the entire ecosystem."
+  "joinCommunitySubtitle": "Be part of the quantum revolution. One account, access to the entire ecosystem.",
+  "whatsappGroupCTA": "Join our WhatsApp group and connect with other enthusiasts!",
+  "whatsappGroupButton": "Join the Group"
 }
