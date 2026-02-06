@@ -1,29 +1,47 @@
-LACQ Feynman — Frontend
+# LACQ Feynman — Website Oficial
 
-Projeto frontend da LACQ Feynman, construído em Next.js 16 e React 19, com Tailwind CSS v4 e temas por variáveis CSS.
+Este é o repositório oficial do website da **LACQ Feynman** (Liga Acadêmica de Computação Quântica). O projeto foi desenvolvido utilizando tecnologias modernas para proporcionar uma experiência imersiva e performática.
 
-Tecnologias
-- Next.js 16 (App Router)
-- React 19
-- Tailwind CSS v4
-- GSAP (Hero animado)
+## 🚀 Tecnologias
 
-Links
-- Quantum Coalition: https://www.quantumcoalition.io/
-- LinkedIn: https://www.linkedin.com/company/lacq-feynman/?viewAsMember=true
-- TikTok: https://www.tiktok.com/@lacqfeynman
+- **Framework:** [Next.js 16 (App Router)](https://nextjs.org/)
+- **Biblioteca UI:** [React 19](https://react.dev/)
+- **Estilização:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animações:** GSAP, Framer Motion e Lottie
+- **Ícones:** Lucide React e Tabler Icons
 
-Instalação
-- `npm ci`
-- `npm run dev` (desenvolvimento)
-- `npm run build` (produção/export)
+## 🛠️ Desenvolvimento e Execução
 
-Deploy (GitHub Pages)
-- Projeto configurado para deploy automático no GitHub Pages
-- Workflow configurado em `.github/workflows/gh-pages.yml`
+### Pré-requisitos
+- Node.js 18+
+- npm
 
-Estrutura
-- `src/app/` layout, página e API
-- `src/ui/components/` componentes e seções
-- `src/contexts/` tema e idioma
-- `src/locales/` traduções
+### Instalação
+```bash
+npm install
+```
+
+### Executar em Desenvolvimento
+```bash
+npm run dev
+```
+
+### Build e Produção
+```bash
+npm run build
+```
+
+## 🌐 Deploy
+
+O website está configurado para deploy contínuo via **Vercel**. Toda atualização na branch `master` resultará em uma nova versão em produção.
+
+## 📁 Estrutura do Projeto
+
+- `src/app/`: Configurações do App Router, layout global e páginas.
+- `src/ui/components/`: Componentes reutilizáveis e seções da landing page.
+- `src/contexts/`: Gerenciamento de estado para Temas (Claro/Escuro) e Idiomas (i18n).
+- `src/locales/`: Arquivos de tradução (PT-BR, EN, ES).
+- `public/`: Ativos estáticos (imagens, vídeos, lottie).
+
+---
+Desenvolvido com ❤️ pela comunidade **LACQ Feynman**.

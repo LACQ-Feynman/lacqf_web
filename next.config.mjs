@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
-const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
-const repoName = (process.env.GITHUB_REPOSITORY || '').split('/')[1] || '';
-const basePath = isGithubActions && repoName ? `/${repoName}` : '';
-const assetPrefix = basePath ? `${basePath}/` : '';
-
 const nextConfig = {
-  output: 'export',
-  basePath,
-  assetPrefix,
+  // Vercel handles the base path automatically for the root domain.
+  // We remove the GH Pages specific prefixes.
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -15,7 +9,7 @@ const nextConfig = {
     ],
   },
   env: {
-    BASE_PATH: basePath,
+    BASE_PATH: '',
   },
 };
 
