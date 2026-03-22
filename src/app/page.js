@@ -7,30 +7,23 @@ import Navigation from "@/ui/components/Navigation";
 import Hero from "@/ui/components/Hero";
 import WhoWeAre from "@/ui/components/WhoWeAre";
 import AboutUs from "@/ui/components/AboutUs";
-import Patronum from "@/ui/components/Patronum";
-import CoreValues from "@/ui/components/CoreValues";
-import Universities from "@/ui/components/Universities";
-import UpcomingEvents from "@/ui/components/UpcomingEvents";
-import Events from "@/ui/components/Events";
 import Partners from "@/ui/components/Partners";
-import MembershipSection from "@/ui/components/MembershipSection";
+import UpcomingEvents from "@/ui/components/UpcomingEvents";
+import HomeCTA from "@/ui/components/HomeCTA";
 
 export default function Home() {
   const sections = useMemo(() => [
     { id: 'whoWeAre', title: 'Quem Somos' },
     { id: 'about', title: 'Quantum Coalition' },
-    { id: 'universities', title: 'Universities' },
-    { id: 'upcomingEvents', title: 'Próximos Eventos' },
-    { id: 'events', title: 'Eventos Realizados' },
-    { id: 'membership', title: 'Junte-se' },
     { id: 'sponsors', title: 'Parceiros' },
+    { id: 'upcomingEvents', title: 'Próximos Eventos' },
+    { id: 'membership', title: 'Junte-se' },
   ], []);
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     // Track scroll progress for the top progress bar.
-    // We prefer transform-based updates (scaleX) to avoid layout thrash.
     let scrollThrottled = false;
 
     const handleScroll = () => {
@@ -62,18 +55,14 @@ export default function Home() {
           aria-valuemax="100"
           aria-label="Progresso de rolagem"
         />
-        <Navigation sections={sections} />
+        <Navigation />
         <div id="main-content" tabIndex="-1">
           <Hero id="hero" />
           <WhoWeAre id="whoWeAre" />
-          <Partners id="sponsors" />
           <AboutUs id="about" />
-          <Patronum id="patronum" />
-          <CoreValues id="values" />
-          <Universities id="universities" />
+          <Partners id="sponsors" />
           <UpcomingEvents id="upcomingEvents" />
-          <Events id="events" />
-          <MembershipSection id="membership" />
+          <HomeCTA id="membership" />
         </div>
       </>
     </Layout>

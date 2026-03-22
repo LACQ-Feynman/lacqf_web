@@ -4,8 +4,15 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { getAssetPath } from "@/utils/assets";
+import QuantumText from "./QuantumText";
 
 const events = [
+  {
+    titleKey: "conexaoLacqTitle",
+    dateKey: "conexaoLacqDate",
+    descriptionKey: "conexaoLacqDescription",
+    youtubeId: "XAKeFgc6KFM",
+  },
   {
     titleKey: "event3Title",
     dateKey: "event3Date",
@@ -105,10 +112,23 @@ const EventCard = ({ event }) => {
               className="overflow-hidden"
             >
               <div
-                className={`pt-8 border-t mt-8 flex flex-col items-center gap-8 ${event.image ? 'lg:flex-row lg:items-start' : 'text-center'}`}
+                className={`pt-8 border-t mt-8 flex flex-col items-center gap-8 ${event.image || event.youtubeId ? 'lg:flex-row lg:items-start' : 'text-center'}`}
                 style={{ borderColor: 'var(--border-light)' }}
               >
-                {event.image && (
+                {event.youtubeId ? (
+                  <div className="w-full lg:w-1/2 aspect-video relative rounded-xl overflow-hidden shadow-2xl flex-shrink-0">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={`https://www.youtube.com/embed/${event.youtubeId}`}
+                      title={t(event.titleKey)}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="absolute inset-0"
+                    ></iframe>
+                  </div>
+                ) : event.image ? (
                   <div className="w-full lg:w-1/2 aspect-video relative rounded-xl overflow-hidden shadow-inner flex-shrink-0 group">
                     <Image
                       src={event.image}
@@ -118,8 +138,8 @@ const EventCard = ({ event }) => {
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
-                )}
-                <div className={`flex-1 ${!event.image ? 'max-w-3xl mx-auto' : ''}`}>
+                ) : null}
+                <div className={`flex-1 ${(!event.image && !event.youtubeId) ? 'max-w-3xl mx-auto' : ''}`}>
                   <p
                     className="text-lg leading-relaxed"
                     style={{ color: 'var(--text-secondary)' }}
@@ -150,7 +170,7 @@ const Events = ({ id }) => {
             className="text-4xl md:text-5xl font-title font-bold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            {t('pastEventsTitle')}
+            <QuantumText text={t('pastEventsTitle')} />
           </h2>
           <p
             className="text-lg max-w-3xl mx-auto"
@@ -183,4 +203,3 @@ const Events = ({ id }) => {
 };
 
 export default Events;
-

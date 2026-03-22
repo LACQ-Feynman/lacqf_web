@@ -13,15 +13,21 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  // `isDark` is the source of truth. We persist to localStorage and
-  // reflect it on the <html> element via a class for CSS variables.
-  const [isDark, setIsDark] = useState(() => {
+  // `isDark` is the source of truth. Default to true (Dark Mode).
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Check if there's a stored preference on mount
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
-      return savedTheme ? savedTheme === 'dark' : false;
+      if (savedTheme === 'light') {
+        setIsDark(false);
+      } else {
+        // If no theme or theme is dark, ensure dark class is applied
+        document.documentElement.classList.add('dark');
+      }
     }
-    return false;
-  });
+  }, []);
 
   const toggleTheme = useCallback(() => {
     // Flip the boolean, update the DOM class, and persist.

@@ -6,6 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import universities from '@/data/mocks/universities.json';
 import { getAssetPath } from '@/utils/assets';
+import QuantumText from "./QuantumText";
 
 const Universities = ({ id }) => {
   const { t } = useLanguage();
@@ -26,7 +27,7 @@ const Universities = ({ id }) => {
             className="text-4xl md:text-5xl font-title font-bold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            {t('universitiesTitle')}
+            <QuantumText text={t('universitiesTitle')} />
           </h2>
           <p
             className="text-lg max-w-3xl mx-auto"
@@ -64,7 +65,9 @@ const Universities = ({ id }) => {
 
         <div className="text-center">
           <a
-            href="#contact"
+            href="https://chat.whatsapp.com/G2L3iYI8l6qD8n9z"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition font-title text-lg"
             style={{
               background: 'linear-gradient(to right, var(--primary), var(--primary-light))'

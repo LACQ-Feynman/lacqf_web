@@ -65,6 +65,7 @@ export default function Partners({ id }) {
                     width={150}
                     height={100}
                     sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 150px"
+                    style={{ width: 'auto', height: 'auto' }}
                     className="object-contain transition duration-300 max-h-12 sm:max-h-14 lg:max-h-16"
                   />
                 </a>

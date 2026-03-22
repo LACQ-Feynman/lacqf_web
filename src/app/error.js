@@ -2,37 +2,42 @@
 
 import React, { useEffect } from 'react';
 
-export default function GlobalError({ error, reset }) {
+/**
+ * According to Next.js App Router conventions:
+ * - `error.js` should NOT contain <html> and <body> tags as it renders inside the layout.
+ * - `global-error.js` MUST contain <html> and <body> tags as it replaces the root layout.
+ * 
+ * Since this file is named `error.js`, we remove the root tags to avoid hydration errors.
+ */
+export default function Error({ error, reset }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error('Global error:', error);
+    console.error('Captured error:', error);
   }, [error]);
 
   return (
-    <html>
-      <body className="bg-background">
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center p-8 max-w-md">
-            <div className="text-6xl mb-4">⚠️</div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Algo deu errado</h2>
-            <p className="text-muted-foreground mb-4">
-              Pedimos desculpas, mas ocorreu um erro inesperado.
-            </p>
-            <button
-              onClick={() => reset()}
-              className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors mr-2"
-            >
-              Tentar novamente
-            </button>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-secondary-600 text-white rounded-md hover:bg-secondary-700 transition-colors"
-            >
-              Recarregar
-            </button>
-          </div>
+    <div className="flex items-center justify-center min-h-[70vh] w-full">
+      <div className="text-center p-8 max-w-md bg-surface border border-border rounded-[2rem] shadow-2xl">
+        <div className="text-6xl mb-6">⚠️</div>
+        <h2 className="text-3xl font-title font-bold text-primary mb-4">Algo deu errado</h2>
+        <p className="text-text-secondary mb-8 text-lg">
+          Pedimos desculpas, mas ocorreu um erro inesperado no processamento quântico.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onClick={() => reset()}
+            className="px-8 py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/20"
+          >
+            Tentar novamente
+          </button>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-8 py-3 bg-secondary text-white rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-secondary/20"
+          >
+            Recarregar
+          </button>
         </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

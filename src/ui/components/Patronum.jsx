@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { getAssetPath } from '@/utils/assets';
 import { useLanguage } from '@/contexts/LanguageContext';
+import QuantumText from "./QuantumText";
 
 const motivosKeys = [
   {
@@ -47,7 +48,7 @@ const Patronum = ({ id }) => {
               className="text-4xl lg:text-5xl font-title font-bold mb-8 leading-tight"
               style={{ color: 'var(--text-primary)' }}
             >
-              {t('patronTitle')}
+              <QuantumText text={t('patronTitle')} />
             </h2>
             <ul className="space-y-6 mb-10">
               {motivosKeys.map((item, index) => (

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Users, Target, BookOpen, ArrowRight } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAssetPath } from '@/utils/assets';
+import QuantumText from "./QuantumText";
 
 const WhoWeAre = ({ id }) => {
   const { t } = useLanguage();
@@ -19,7 +20,7 @@ const WhoWeAre = ({ id }) => {
           {/* Text Content */}
           <div className="order-2 lg:order-1">
             <h2 className="text-4xl md:text-5xl font-title font-bold text-theme-primary leading-tight mb-8">
-              {t('whoWeAreTitle')}
+              <QuantumText text={t('whoWeAreTitle')} />
             </h2>
             <div className="space-y-6 text-lg text-theme-secondary leading-relaxed">
               <p>

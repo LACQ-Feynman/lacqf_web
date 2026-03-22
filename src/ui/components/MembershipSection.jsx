@@ -14,13 +14,12 @@ import {
 } from 'lucide-react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import SignupForm from './SignupForm';
 
 const MembershipSection = ({ id }) => {
     const [openIdx, setOpenIdx] = useState(0);
     const { t } = useLanguage();
 
-    const whatsappGroupLink = "https://chat.whatsapp.com/Gs7ZFId4iBwKFIrbhDyGIX?mode=gi_t";
+    const whatsappGroupLink = "https://chat.whatsapp.com/G2L3iYI8l6qD8n9z";
 
     // Get base path for GitHub Pages compatibility
     const basePath = process.env.BASE_PATH || '';
@@ -124,8 +123,8 @@ const MembershipSection = ({ id }) => {
                     </div>
                 </div>
 
-                {/* Main Content: Split Layout (Reasons + Signup) */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
+                {/* Main Content: Split Layout (Reasons + WhatsApp CTA) */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
 
                     {/* Left Column: Why Join (Accordion) */}
                     <div className="space-y-8">
@@ -175,11 +174,33 @@ const MembershipSection = ({ id }) => {
                         </div>
                     </div>
 
-                    {/* Right Column: Signup Form */}
-                    <div className="relative">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-2xl blur opacity-20"></div>
-                        <div className="relative bg-surface border border-border rounded-2xl p-6 sm:p-8 shadow-xl">
-                            <SignupForm />
+                    {/* Right Column: WhatsApp Community Card */}
+                    <div className="relative group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-green-500 to-primary rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                        <div className="relative bg-surface border border-border rounded-[2.5rem] p-8 md:p-12 shadow-2xl text-center">
+                            <div className="w-20 h-20 bg-green-500/10 text-green-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner">
+                                <IconBrandWhatsapp className="w-12 h-12" />
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-title font-bold mb-4">
+                                {t('joinCommunityTitle')}
+                            </h3>
+                            <p className="text-muted-foreground mb-10 leading-relaxed">
+                                {t('whatsappGroupCTA')}
+                            </p>
+                            <a 
+                                href={whatsappGroupLink} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center w-full px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-black text-lg shadow-xl shadow-green-600/20 transition-all transform hover:-translate-y-1 active:scale-95"
+                            >
+                                {t('whatsappGroupButton')}
+                                <MessageCircle className="ml-2 w-6 h-6" />
+                            </a>
+                            
+                            <div className="mt-8 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-60">
+                                <Users className="w-4 h-4" />
+                                <span>+1.200 Membros Ativos</span>
+                            </div>
                         </div>
                     </div>
                 </div>

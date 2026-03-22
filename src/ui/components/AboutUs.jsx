@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ActivitySquare, BookOpen, Briefcase, ExternalLink } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAssetPath } from '@/utils/assets';
+import QuantumText from "./QuantumText";
 
 const AboutUs = ({ id }) => {
   const { t } = useLanguage();
@@ -18,7 +19,7 @@ const AboutUs = ({ id }) => {
         <div className="mb-20">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-title font-bold text-theme-primary leading-tight mb-6">
-              {t('aboutTitle')}
+              <QuantumText text={t('aboutTitle')} />
             </h2>
             <p className="text-lg text-theme-secondary mb-6 leading-relaxed">
               {t('aboutDescription')}

@@ -8,6 +8,7 @@ import {
   Users,
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import QuantumText from './QuantumText';
  
 
 const ConventionalCards = ({ values }) => (
@@ -99,7 +100,7 @@ const CoreValues = ({ id }) => {
             className="text-4xl md:text-5xl font-title font-bold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            {t('valuesTitle')}
+            <QuantumText text={t('valuesTitle')} />
           </h2>
           <p
             className="text-lg"

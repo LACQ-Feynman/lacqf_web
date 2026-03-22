@@ -4,25 +4,9 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import Image from "next/image";
 import { getAssetPath } from "@/utils/assets";
 import { motion } from "framer-motion";
+import QuantumText from "./QuantumText";
 
-const upcomingEvents = [
-  {
-    titleKey: "upcomingEventConexaoTitle",
-    subtitleKey: "upcomingEventConexaoSubtitle",
-    topicKey: "upcomingEventConexaoTopic",
-    dateKey: "upcomingEventConexaoDate",
-    timeKey: "upcomingEventConexaoTime",
-    meetLinkKey: "upcomingEventConexaoMeetLink",
-    descriptionKey: "upcomingEventConexaoDescription",
-    lesterBioKey: "upcomingEventConexaoLesterBio",
-    vanessaBioKey: "upcomingEventConexaoVanessaBio",
-    openingKey: "upcomingEventConexaoOpening",
-    moderationKey: "upcomingEventConexaoModeration",
-    footerKey: "upcomingEventConexaoFooter",
-    link: "https://meet.google.com/gtb-idvs-ipa",
-    image: getAssetPath("/images/lacqf/COMO TRANSFORMAR PESQUISA EM NEGÓCIOS.webp"),
-  },
-];
+const upcomingEvents = [];
 
 const UpcomingEvents = ({ id }) => {
   const { t } = useLanguage();
@@ -44,7 +28,7 @@ const UpcomingEvents = ({ id }) => {
               className="text-4xl md:text-6xl font-title font-bold mb-6 tracking-tight"
               style={{ color: 'var(--text-primary)' }}
             >
-              {t('upcomingEventsTitle')}
+              <QuantumText text={t('upcomingEventsTitle')} />
             </h2>
             <div className="w-24 h-1.5 bg-primary mx-auto mb-6 rounded-full" />
             <p
@@ -251,7 +235,7 @@ const UpcomingEvents = ({ id }) => {
                             background: 'linear-gradient(135deg, var(--primary), var(--primary-light))'
                           }}
                         >
-                          {t('joinButton')}
+                          {t('joinEvent')}
                           <ExternalLink className="ml-4 w-7 h-7" />
                         </motion.a>
                       </div>

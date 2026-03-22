@@ -10,14 +10,21 @@ import { AnimatedThemeToggler } from './ThemeToggle';
 import DesktopNavigation from './Navigation/DesktopNavigation';
 import MobileNavigation from './Navigation/MobileNavigation';
 import { getAssetPath } from '@/utils/assets';
+import { usePathname } from 'next/navigation';
 
-const Navigation = ({ sections }) => {
+const NAV_ROUTES = [
+  { id: 'home', path: '/', labelKey: 'home' },
+  { id: 'sobre', path: '/sobre', labelKey: 'about' },
+  { id: 'eventos', path: '/eventos', labelKey: 'events' },
+  { id: 'comunidade', path: '/comunidade', labelKey: 'join' },
+];
+
+const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useLanguage();
+  const pathname = usePathname();
 
-  // Use Intersection Observer API for more efficient active section detection
   useEffect(() => {
     let scrollThrottled = false;
 
@@ -33,41 +40,8 @@ const Navigation = ({ sections }) => {
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    // Set up Intersection Observer for section detection
-    const sectionElements = sections.map(section =>
-      document.getElementById(section.id)
-    ).filter(Boolean);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        threshold: 0.5,
-        rootMargin: '-20% 0px -70% 0px'
-      }
-    );
-
-    sectionElements.forEach(el => el && observer.observe(el));
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      sectionElements.forEach(el => el && observer.unobserve(el));
-    };
-  }, [sections]); // Now we need sections dependency for observer setup
-
-  const scrollToSection = useCallback((sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsMobileMenuOpen(false);
-    }
-  }, [setIsMobileMenuOpen]);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -118,9 +92,8 @@ const Navigation = ({ sections }) => {
 
               <div className="hidden md:flex items-center gap-6">
                 <DesktopNavigation
-                  sections={sections}
-                  activeSection={activeSection}
-                  scrollToSection={scrollToSection}
+                  routes={NAV_ROUTES}
+                  pathname={pathname}
                 />
                 <div className="flex items-center gap-4">
                   <AnimatedThemeToggler />
@@ -132,11 +105,10 @@ const Navigation = ({ sections }) => {
 
           {/* The mobile drawer appears below the header when open */}
           <MobileNavigation
-            sections={sections}
-            activeSection={activeSection}
+            routes={NAV_ROUTES}
+            pathname={pathname}
             isMobileMenuOpen={isMobileMenuOpen}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
-            scrollToSection={scrollToSection}
           />
         </div>
       </header>
