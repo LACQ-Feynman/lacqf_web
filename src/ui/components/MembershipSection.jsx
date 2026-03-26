@@ -210,9 +210,11 @@ const MembershipSection = ({ id }) => {
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
                         {/* Logo + Text Section - Left */}
                         <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 text-center sm:text-left">
-                            <img
+                            <Image
                                 src={`${basePath}/images/lacqf/logo completa.webp`}
                                 alt="LACQ Feynman Logo Completa"
+                                width={200}
+                                height={48}
                                 className="h-12 w-auto object-contain"
                             />
                             <div className="text-center sm:text-left">

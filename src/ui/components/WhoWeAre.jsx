@@ -2,10 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Users, Target, BookOpen, ArrowRight } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAssetPath } from '@/utils/assets';
 import QuantumText from "./QuantumText";
+import MagneticWrapper from "./MagneticWrapper";
 
 const WhoWeAre = ({ id }) => {
   const { t } = useLanguage();
@@ -66,15 +68,27 @@ const WhoWeAre = ({ id }) => {
           </div>
         </div>
 
-        {/* Mission Statement */}
+        {/* Mission Statement + CTA */}
         <div className="mt-16 text-center">
-          <div className="max-w-4xl mx-auto p-8 rounded-2xl border border-theme-light bg-theme-secondary/50">
-            <h3 className="text-2xl font-title font-semibold text-theme-primary mb-4">
+          <div className="max-w-4xl mx-auto p-8 md:p-12 rounded-[2rem] border border-theme-light bg-theme-secondary/50 shadow-xl backdrop-blur-sm">
+            <h3 className="text-2xl md:text-3xl font-title font-semibold text-theme-primary mb-6">
               {t('whoWeAreMissionTitle')}
             </h3>
-            <p className="text-lg text-theme-secondary leading-relaxed">
+            <p className="text-xl text-theme-secondary leading-relaxed mb-10">
               {t('whoWeAreMissionText')}
             </p>
+            
+            <div className="flex justify-center">
+              <MagneticWrapper>
+                <Link
+                  href="/sobre"
+                  className="group inline-flex items-center gap-3 px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 active:scale-95"
+                >
+                  {t('knowMoreAbout')}
+                  <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </MagneticWrapper>
+            </div>
           </div>
         </div>
       </div>
