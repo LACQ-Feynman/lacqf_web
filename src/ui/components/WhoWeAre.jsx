@@ -1,9 +1,8 @@
 'use client';
 
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Users, Target, BookOpen, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getAssetPath } from '@/utils/assets';
 import QuantumText from "./QuantumText";

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+'use client';
+
+import { useState } from "react";
 import { CalendarDays, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, AnimatePresence } from "framer-motion";

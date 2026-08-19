@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from "@/ui/components/Layout";
 import Navigation from "@/ui/components/Navigation";
 
@@ -12,14 +12,6 @@ import UpcomingEvents from "@/ui/components/UpcomingEvents";
 import HomeCTA from "@/ui/components/HomeCTA";
 
 export default function Home() {
-  const sections = useMemo(() => [
-    { id: 'whoWeAre', title: 'Quem Somos' },
-    { id: 'about', title: 'Quantum Coalition' },
-    { id: 'sponsors', title: 'Parceiros' },
-    { id: 'upcomingEvents', title: 'Próximos Eventos' },
-    { id: 'membership', title: 'Junte-se' },
-  ], []);
-
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {

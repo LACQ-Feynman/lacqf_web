@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
@@ -9,12 +8,12 @@ import { useTheme } from '@/contexts/ThemeContext';
 import QuantumText from './QuantumText';
 import MagneticWrapper from './MagneticWrapper';
 
-export default function HomeCTA() {
+export default function HomeCTA({ id }) {
   const { t } = useLanguage();
   const { isDark } = useTheme();
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section id={id} className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Decorative Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-64 bg-primary/20 rounded-full blur-[120px]" />

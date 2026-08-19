@@ -1,7 +1,7 @@
-import React from "react";
-import { Calendar, Clock, ExternalLink, Video, User, Users, ArrowRight, Sparkles, MapPin } from "lucide-react";
+'use client';
+
+import { Calendar, Clock, ExternalLink, ArrowRight, Sparkles, MapPin } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
-import Image from "next/image";
 import { motion } from "framer-motion";
 import QuantumText from "./QuantumText";
 

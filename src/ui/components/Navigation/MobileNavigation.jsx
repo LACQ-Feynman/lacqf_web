@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageDropdown from '@/ui/components/LanguageDropdown';
@@ -8,13 +10,54 @@ const MobileNavigation = ({
   pathname,
   isMobileMenuOpen,
   setIsMobileMenuOpen,
+  menuButtonRef,
 }) => {
   const { t } = useLanguage();
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return undefined;
+
+    const firstFocusable = menuRef.current?.querySelector('a, button');
+    const focusFrame = window.requestAnimationFrame(() => firstFocusable?.focus());
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        menuButtonRef?.current?.focus();
+      }
+    };
+
+    const closeOnOutsideClick = (event) => {
+      if (
+        !menuRef.current?.contains(event.target) &&
+        !menuButtonRef?.current?.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', closeOnEscape);
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener('keydown', closeOnEscape);
+      document.removeEventListener('pointerdown', closeOnOutsideClick);
+    };
+  }, [isMobileMenuOpen, menuButtonRef, setIsMobileMenuOpen]);
+
+  const closeMenu = () => {
+    setIsMobileMenuOpen(false);
+    menuButtonRef?.current?.focus();
+  };
 
   if (!isMobileMenuOpen) return null;
 
   return (
     <div
+      ref={menuRef}
+      id="mobile-navigation"
       className="md:hidden mt-4 pb-4 border-t pt-4"
       style={{ borderColor: 'var(--border-light)' }}
       role="dialog"
@@ -32,13 +75,14 @@ const MobileNavigation = ({
           <Link
             key={route.id}
             href={route.path}
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={closeMenu}
             className="text-left transition focus:outline-none focus:rounded px-4 py-3 rounded-xl hover:bg-primary/10"
             style={{
               color: pathname === route.path ? 'var(--primary)' : 'var(--text)',
               fontWeight: pathname === route.path ? '700' : '500',
-              backgroundColor: pathname === route.path ? 'var(--primary)/5' : 'transparent'
+              backgroundColor: pathname === route.path ? 'color-mix(in srgb, var(--primary) 5%, transparent)' : 'transparent'
             }}
+            aria-current={pathname === route.path ? 'page' : undefined}
           >
             {t(route.labelKey)}
           </Link>

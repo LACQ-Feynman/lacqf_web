@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 
 const ThemeContext = createContext();
 
@@ -13,29 +13,29 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  // Use a function to initialize state from localStorage to avoid cascading renders in useEffect
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      return savedTheme !== 'light'; // Default to true (dark) if not explicitly 'light'
+  // Keep the server render and the first client render deterministic.
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem('theme');
+
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      const frame = window.requestAnimationFrame(() => setIsDark(savedTheme === 'dark'));
+      return () => window.cancelAnimationFrame(frame);
     }
-    return true;
-  });
+
+    return undefined;
+  }, []);
 
   const toggleTheme = useCallback(() => {
     const newTheme = !isDark;
     setIsDark(newTheme);
-    if (typeof window !== 'undefined') {
-      document.documentElement.classList.toggle('dark', newTheme);
-      localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-    }
+    document.documentElement.classList.toggle('dark', newTheme);
+    window.localStorage.setItem('theme', newTheme ? 'dark' : 'light');
   }, [isDark]);
 
   useEffect(() => {
-    // Initial sync of the DOM class on mount or theme change
-    if (typeof window !== 'undefined') {
-      document.documentElement.classList.toggle('dark', isDark);
-    }
+    document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
   const contextValue = useMemo(() => ({

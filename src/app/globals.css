@@ -44,9 +44,9 @@
   --bg-secondary: var(--surface);
   --bg-tertiary: var(--surface);
   --text-primary: var(--text);
-  --text-secondary: var(--text-secondary);
-  --border-light: var(--border);
-  --border-medium: var(--border-medium);
+
+
+
   
   /* Shadows with better contrast for light mode */
   --shadow-sm: 0 1px 2px 0 rgb(124 58 237 / 0.05);
@@ -97,9 +97,9 @@
   --bg-secondary: var(--surface);
   --bg-tertiary: var(--surface);
   --text-primary: var(--text);
-  --text-secondary: var(--text-secondary);
-  --border-light: var(--border);
-  --border-medium: var(--border-medium);
+
+
+
   
   /* Shadows with better contrast for dark mode */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);

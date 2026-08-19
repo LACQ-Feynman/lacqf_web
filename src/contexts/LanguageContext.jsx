@@ -1,8 +1,11 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import ptBR from '@/locales/pt-BR.json';
 import { loadTranslations } from '@/lib/i18n';
 
+const DEFAULT_LANGUAGE = 'pt-BR';
+const SUPPORTED_LANGUAGES = ['pt-BR', 'en', 'es'];
 const LanguageContext = createContext();
 
 export const useLanguage = () => {
@@ -14,36 +17,49 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  // We lazily initialize from localStorage so SSR doesn't break
-  // and the first client render matches the user's preference.
-  const [currentLanguage, setCurrentLanguage] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('language') || 'pt-BR';
-    }
-    return 'pt-BR';
-  });
-  const [translations, setTranslations] = useState({});
+  // Keep the server render and the first client render deterministic.
+  const [currentLanguage, setCurrentLanguage] = useState(DEFAULT_LANGUAGE);
+  const [translations, setTranslations] = useState(ptBR);
 
   useEffect(() => {
-    // Load translations for the current language whenever it changes.
-    const loadAndSetTranslations = async () => {
-      const translationModule = await loadTranslations(currentLanguage);
-      setTranslations(translationModule.default || {});
-    };
+    const storedLanguage = window.localStorage.getItem('language');
 
-    loadAndSetTranslations();
+    if (SUPPORTED_LANGUAGES.includes(storedLanguage) && storedLanguage !== DEFAULT_LANGUAGE) {
+      const frame = window.requestAnimationFrame(() => setCurrentLanguage(storedLanguage));
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    return undefined;
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = currentLanguage;
+
+    let cancelled = false;
+
+    if (currentLanguage === DEFAULT_LANGUAGE) {
+      return undefined;
+    }
+
+    loadTranslations(currentLanguage).then((translationModule) => {
+      if (!cancelled) {
+        setTranslations(translationModule.default || translationModule);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, [currentLanguage]);
 
-  // Initial state comes from localStorage via the lazy initializer above
+  const changeLanguage = useCallback((language) => {
+    if (!SUPPORTED_LANGUAGES.includes(language)) return;
 
-  const changeLanguage = useCallback(async (language) => {
-    // Persist, then load translation bundle and update state.
     setCurrentLanguage(language);
-    localStorage.setItem('language', language);
-    
-    // Load translations for the new language
-    const translationModule = await loadTranslations(language);
-    setTranslations(translationModule.default || {});
+    if (language === DEFAULT_LANGUAGE) {
+      setTranslations(ptBR);
+    }
+    window.localStorage.setItem('language', language);
   }, []);
 
   const t = useCallback((key) => {

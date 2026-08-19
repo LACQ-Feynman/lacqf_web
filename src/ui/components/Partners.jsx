@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -5,15 +7,15 @@ import companies from '@/data/mocks/companies.json';
 import universities from '@/data/mocks/universities.json';
 import leagues from '@/data/mocks/leagues.json';
 import master from '@/data/mocks/master.json';
-import icts from '@/data/mocks/institutes.json';
+import institutes from '@/data/mocks/institutes.json';
 import { getAssetPath } from '@/utils/assets';
 
 const partners = {
-  master: master,
-  icts: icts,
-  companies: companies,
-  universities: universities,
-  institutes: leagues
+  master,
+  icts: institutes,
+  companies,
+  universities,
+  leagues,
 };
 
 const groupTitles = {
@@ -21,15 +23,27 @@ const groupTitles = {
   icts: 'ICTs',
   companies: 'Empresas',
   universities: 'Universidades de nossos membros',
-  institutes: 'Ligas'
+  leagues: 'Ligas',
 };
 
-const displayOrder = ['master', 'icts', 'companies', 'universities', 'institutes'];
+const displayOrder = ['master', 'icts', 'companies', 'universities', 'leagues'];
+const partnerCardClass = 'flex items-center justify-center hover:scale-105 transition-transform duration-300 p-6 bg-theme-secondary rounded-xl shadow-lg border border-theme-light';
+
+const PartnerImage = ({ partner, isDark }) => (
+  <Image
+    src={getAssetPath((isDark && partner.logoDark) ? partner.logoDark : partner.logo)}
+    alt={partner.name}
+    width={150}
+    height={100}
+    sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 150px"
+    style={{ width: 'auto', height: 'auto' }}
+    className="object-contain transition duration-300 max-h-12 sm:max-h-14 lg:max-h-16"
+  />
+);
 
 export default function Partners({ id }) {
   const { isDark } = useTheme();
 
-  // Partner logos grouped by type; images use Next's optimizer.
   return (
     <section
       id={id}
@@ -51,25 +65,25 @@ export default function Partners({ id }) {
               {groupTitles[groupKey]}
             </h3>
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-12">
-              {partners[groupKey].map((partner) => (
-                <a
-                  key={partner.name}
-                  href={partner.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center hover:scale-105 transition-transform duration-300 p-6 bg-theme-secondary rounded-xl shadow-lg border border-theme-light"
-                >
-                  <Image
-                    src={getAssetPath((isDark && partner.logoDark) ? partner.logoDark : partner.logo)}
-                    alt={partner.name}
-                    width={150}
-                    height={100}
-                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 150px"
-                    style={{ width: 'auto', height: 'auto' }}
-                    className="object-contain transition duration-300 max-h-12 sm:max-h-14 lg:max-h-16"
-                  />
-                </a>
-              ))}
+              {partners[groupKey].map((partner) => {
+                const image = <PartnerImage partner={partner} isDark={isDark} />;
+
+                return partner.url ? (
+                  <a
+                    key={partner.name}
+                    href={partner.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={partnerCardClass}
+                  >
+                    {image}
+                  </a>
+                ) : (
+                  <div key={partner.name} className={partnerCardClass}>
+                    {image}
+                  </div>
+                );
+              })}
             </div>
           </div>
         ))}

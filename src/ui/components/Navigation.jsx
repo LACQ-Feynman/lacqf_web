@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import LanguageDropdown from './LanguageDropdown';
 import { Menu, X } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { AnimatedThemeToggler } from './ThemeToggle';
 import DesktopNavigation from './Navigation/DesktopNavigation';
 import MobileNavigation from './Navigation/MobileNavigation';
@@ -22,7 +21,7 @@ const NAV_ROUTES = [
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t } = useLanguage();
+  const mobileMenuButtonRef = useRef(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -82,10 +81,13 @@ const Navigation = () => {
                 <AnimatedThemeToggler />
               </div>
               <button
+                ref={mobileMenuButtonRef}
+                type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 rounded-lg focus:outline-none focus:ring-2 focus:rounded mobile-menu-btn"
                 aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
                 aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-navigation"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -109,6 +111,7 @@ const Navigation = () => {
             pathname={pathname}
             isMobileMenuOpen={isMobileMenuOpen}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
+            menuButtonRef={mobileMenuButtonRef}
           />
         </div>
       </header>

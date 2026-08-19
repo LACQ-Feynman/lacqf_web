@@ -1,10 +1,7 @@
 'use client';
 
-import React from "react";
-import Image from "next/image";
 import { ActivitySquare, BookOpen, Briefcase, ExternalLink } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getAssetPath } from '@/utils/assets';
 import QuantumText from "./QuantumText";
 
 const AboutUs = ({ id }) => {

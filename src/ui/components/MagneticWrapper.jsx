@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function MagneticWrapper({ children, strength = 0.3, className = "" }) {
