@@ -3,6 +3,7 @@
 import { ActivitySquare, BookOpen, Briefcase, ExternalLink } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
 import QuantumText from "./QuantumText";
+import { EXTERNAL_LINKS } from '@/utils/links';
 
 const AboutUs = ({ id }) => {
   const { t } = useLanguage();
@@ -22,7 +23,7 @@ const AboutUs = ({ id }) => {
               {t('aboutDescription')}
             </p>
             <a
-              href="https://www.quantumcoalition.io/"
+              href={EXTERNAL_LINKS.quantumCoalition}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-lg shadow-md hover:shadow-lg transition mb-8"

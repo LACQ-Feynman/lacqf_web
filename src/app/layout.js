@@ -28,9 +28,53 @@ const orbitron = Orbitron({
   display: 'swap',
 });
 
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  || process.env.VERCEL_PROJECT_PRODUCTION_URL
+  || process.env.VERCEL_URL
+  || 'http://localhost:3000';
+const siteUrl = configuredSiteUrl.startsWith('http')
+  ? configuredSiteUrl
+  : `https://${configuredSiteUrl}`;
+
 export const metadata = {
-  title: "LACQ Feynman | Liga Nacional de Computação Quântica",
-  description: "A Liga Nacional de Computação Quântica é uma organização que busca promover a computação quântica no Brasil.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "LACQ Feynman | Liga Nacional de Computação Quântica",
+    template: "%s | LACQ Feynman",
+  },
+  description: "A Liga Nacional de Computação Quântica promove educação, pesquisa e comunidade em computação quântica no Brasil.",
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    url: '/',
+    siteName: 'LACQ Feynman',
+    title: 'LACQ Feynman | Liga Nacional de Computação Quântica',
+    description: 'Educação, pesquisa e comunidade em computação quântica no Brasil.',
+    images: [
+      {
+        url: '/images/lacqf/logo.webp',
+        width: 512,
+        height: 512,
+        alt: 'Logo da LACQ Feynman',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LACQ Feynman | Liga Nacional de Computação Quântica',
+    description: 'Educação, pesquisa e comunidade em computação quântica no Brasil.',
+    images: ['/images/lacqf/logo.webp'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -11,6 +11,7 @@ import MagneticWrapper from './MagneticWrapper';
 export default function HomeCTA({ id }) {
   const { t } = useLanguage();
   const { isDark } = useTheme();
+  const reducedMotion = useReducedMotion();
 
   return (
     <section id={id} className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -21,7 +22,7 @@ export default function HomeCTA({ id }) {
 
       <div className="max-w-5xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="rounded-[3rem] p-8 md:p-16 border backdrop-blur-xl text-center relative overflow-hidden shadow-2xl transition-colors duration-300"
@@ -35,11 +36,11 @@ export default function HomeCTA({ id }) {
 
           <div className="relative z-10">
             <motion.div
-              animate={{ rotate: [0, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity }}
+              animate={!reducedMotion ? { rotate: [0, 10, 0] } : undefined}
+              transition={!reducedMotion ? { duration: 5, repeat: Infinity } : undefined}
               className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-8"
             >
-              <Sparkles className="w-8 h-8" />
+              <Sparkles className="w-8 h-8" aria-hidden="true" />
             </motion.div>
 
             <h2 className="text-3xl md:text-6xl font-title font-bold mb-6 leading-tight" style={{ color: 'var(--text-primary)' }}>
@@ -61,7 +62,7 @@ export default function HomeCTA({ id }) {
                   }}
                 >
                   {t('homeCTAButton')}
-                  <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </Link>
               </MagneticWrapper>
             </div>

@@ -1,25 +1,25 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Instagram } from 'lucide-react';
-import { IconBrandWhatsapp, IconBrandTiktok } from '@tabler/icons-react';
+import { IconBrandInstagram, IconBrandWhatsapp, IconBrandTiktok } from '@tabler/icons-react';
+import { EXTERNAL_LINKS } from '@/utils/links';
 
 const socials = [
   {
     name: 'Instagram',
-    href: 'https://www.instagram.com/lacqfeynman?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
-    icon: Instagram,
+    href: EXTERNAL_LINKS.instagram,
+    icon: IconBrandInstagram,
     color: 'hover:text-pink-500',
   },
   {
     name: 'TikTok',
-    href: 'https://www.tiktok.com/@lacqfeynman',
+    href: EXTERNAL_LINKS.tiktok,
     icon: IconBrandTiktok,
     color: 'hover:text-black dark:hover:text-white',
   },
   {
     name: 'WhatsApp',
-    href: 'https://chat.whatsapp.com/Gs7ZFId4iBwKFIrbhDyGIX?mode=gi_t',
+    href: EXTERNAL_LINKS.whatsapp.social,
     icon: IconBrandWhatsapp,
     color: 'hover:text-green-500',
   },
@@ -51,13 +51,21 @@ const SocialStack = () => {
   }, []);
 
   useEffect(() => {
+    let timeoutId;
+    let animationFrameId;
+
     if (hide) {
-      setTimeout(() => setVisible(false), 300);
+      timeoutId = window.setTimeout(() => setVisible(false), 300);
     } else {
       // Use rAF to avoid synchronous setState inside the effect,
       // keeping updates smooth.
-      requestAnimationFrame(() => setVisible(true));
+      animationFrameId = window.requestAnimationFrame(() => setVisible(true));
     }
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (animationFrameId) window.cancelAnimationFrame(animationFrameId);
+    };
   }, [hide]);
 
   return (

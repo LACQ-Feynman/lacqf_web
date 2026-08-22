@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 import Image from 'next/image';
 import LanguageDropdown from './LanguageDropdown';
@@ -22,34 +23,74 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const mobileMenuButtonRef = useRef(null);
+  const progressBarRef = useRef(null);
+  const isScrolledRef = useRef(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   useEffect(() => {
-    let scrollThrottled = false;
+    let animationFrameId = null;
 
-    const handleScroll = () => {
-      if (!scrollThrottled) {
-        scrollThrottled = true;
-        requestAnimationFrame(() => {
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          setIsScrolled(scrollTop > 10);
-          scrollThrottled = false;
-        });
+    const updateScrollState = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const nextIsScrolled = scrollTop > 10;
+
+      if (isScrolledRef.current !== nextIsScrolled) {
+        isScrolledRef.current = nextIsScrolled;
+        setIsScrolled(nextIsScrolled);
       }
+
+      if (pathname !== '/' || !progressBarRef.current) return;
+
+      const scrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = scrollableHeight > 0
+        ? Math.min(100, Math.max(0, (scrollTop / scrollableHeight) * 100))
+        : 0;
+
+      progressBarRef.current.style.transform = `scaleX(${progress / 100})`;
+      progressBarRef.current.setAttribute('aria-valuenow', progress.toFixed(2));
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const handleScroll = () => {
+      if (animationFrameId !== null) return;
+
+      animationFrameId = window.requestAnimationFrame(() => {
+        animationFrameId = null;
+        updateScrollState();
+      });
+    };
+
+    updateScrollState();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameId !== null) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [pathname]);
 
   return (
     <>
+      {pathname === '/' && (
+        <div
+          ref={progressBarRef}
+          className="fixed top-0 left-0 h-1 z-50 scroll-progress-bar"
+          style={{ transform: 'scaleX(0)' }}
+          role="progressbar"
+          aria-valuenow="0"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-label={t('scrollProgress')}
+        />
+      )}
       {/* Accessibility: let keyboard users skip the header quickly */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:border skip-link"
       >
-        Pular para conteúdo principal
+        {t('skipToContent')}
       </a>
 
       <header
@@ -70,6 +111,7 @@ const Navigation = () => {
                 alt="LACQ Feynman Logo"
                 width={32}
                 height={32}
+                sizes="32px"
                 className="w-8 h-8 object-contain"
               />
               <span>LACQ Feynman</span>
@@ -85,7 +127,7 @@ const Navigation = () => {
                 type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 rounded-lg focus:outline-none focus:ring-2 focus:rounded mobile-menu-btn"
-                aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+                aria-label={isMobileMenuOpen ? t('closeMenu') : t('openMenu')}
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-navigation"
               >

@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import ptBR from '@/locales/pt-BR.json';
 import { loadTranslations } from '@/lib/i18n';
+import { usePathname } from 'next/navigation';
 
 const DEFAULT_LANGUAGE = 'pt-BR';
 const SUPPORTED_LANGUAGES = ['pt-BR', 'en', 'es'];
@@ -20,6 +21,7 @@ export const LanguageProvider = ({ children }) => {
   // Keep the server render and the first client render deterministic.
   const [currentLanguage, setCurrentLanguage] = useState(DEFAULT_LANGUAGE);
   const [translations, setTranslations] = useState(ptBR);
+  const pathname = usePathname();
 
   useEffect(() => {
     const storedLanguage = window.localStorage.getItem('language');
@@ -66,6 +68,20 @@ export const LanguageProvider = ({ children }) => {
     // Simple dict lookup; if a key is missing, fall back to the key itself.
     return translations[key] || key;
   }, [translations]);
+
+  useEffect(() => {
+    const pageMetadata = {
+      '/': { title: 'siteTitle', description: 'siteDescription' },
+      '/sobre': { title: 'aboutPageTitle', description: 'aboutPageDescription' },
+      '/eventos': { title: 'eventsPageTitle', description: 'eventsPageDescription' },
+      '/comunidade': { title: 'communityPageTitle', description: 'communityPageDescription' },
+    };
+    const metadata = pageMetadata[pathname] || pageMetadata['/'];
+    const description = document.querySelector('meta[name="description"]');
+
+    document.title = t(metadata.title);
+    description?.setAttribute('content', t(metadata.description));
+  }, [pathname, t]);
 
   const contextValue = useMemo(() => ({
     currentLanguage,

@@ -2,8 +2,10 @@
 
 import { Calendar, Clock, ExternalLink, ArrowRight, Sparkles, MapPin } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
-import { motion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from 'react';
 import QuantumText from "./QuantumText";
+import { EXTERNAL_LINKS } from '@/utils/links';
 
 const upcomingEvents = [
   {
@@ -15,12 +17,15 @@ const upcomingEvents = [
     locationKey: "upcomingEventUnisoLocation",
     descriptionKey: "upcomingEventUnisoDescription",
     footerKey: "upcomingEventUnisoFooter",
-    link: "https://share.google/dtB25YcwLd6J2MEFK",
+    link: EXTERNAL_LINKS.upcomingEvent,
   },
 ];
 
 const UpcomingEvents = ({ id }) => {
   const { t } = useLanguage();
+  const reducedMotion = useReducedMotion();
+  const eventRef = useRef(null);
+  const eventIsInView = useInView(eventRef, { once: false, amount: 0.1 });
 
   return (
     <section
@@ -30,10 +35,10 @@ const UpcomingEvents = ({ id }) => {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: reducedMotion ? 0 : 0.8 }}
           >
             <h2
               className="text-4xl md:text-6xl font-title font-bold mb-6 tracking-tight"
@@ -56,10 +61,11 @@ const UpcomingEvents = ({ id }) => {
             {upcomingEvents.map((event, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 50 }}
+                ref={eventRef}
+                initial={reducedMotion ? false : { opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: reducedMotion ? 0 : 1, ease: [0.16, 1, 0.3, 1] }}
                 className="relative group"
               >
                 <div
@@ -71,17 +77,16 @@ const UpcomingEvents = ({ id }) => {
                 >
                   {/* Energy Streak Animation */}
                   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-                    <motion.div 
-                      animate={{ 
+                    <motion.div                      animate={(!reducedMotion && eventIsInView) ? {
                         top: ["-100%", "200%"],
                         left: ["-100%", "200%"],
-                      }}
-                      transition={{ 
-                        duration: 8, 
-                        repeat: Infinity, 
+                      } : undefined}
+                      transition={!reducedMotion ? {
+                        duration: 8,
+                        repeat: Infinity,
                         repeatDelay: 2,
-                        ease: "linear" 
-                      }}
+                        ease: "linear"
+                      } : undefined}
                       className="absolute w-full h-[200%] bg-gradient-to-b from-transparent via-primary/5 to-transparent rotate-[35deg] blur-3xl"
                     />
                   </div>
@@ -91,8 +96,8 @@ const UpcomingEvents = ({ id }) => {
                     <div className="flex-1 p-8 lg:p-20 text-center flex flex-col items-center">
                       <div className="mb-12">
                         <motion.div 
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{ duration: 3, repeat: Infinity }}
+                          animate={!reducedMotion ? { scale: [1, 1.05, 1] } : undefined}
+                          transition={!reducedMotion ? { duration: 3, repeat: Infinity } : undefined}
                           className="inline-flex items-center px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase mb-8" 
                           style={{ backgroundColor: 'var(--primary)', color: 'var(--primary-foreground)' }}>
                           <Sparkles className="w-4 h-4 mr-2" />
@@ -120,24 +125,24 @@ const UpcomingEvents = ({ id }) => {
                             <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/10 shadow-lg mb-4" style={{ color: 'var(--primary)' }}>
                               <Calendar className="w-7 h-7" />
                             </div>
-                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1">Data</p>
-                            <p className="text-xl font-bold tracking-tight">{t(event.dateKey)}</p>
+                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1" style={{ color: 'var(--text-secondary)' }}>{t('eventDateLabel')}</p>
+                            <p className="text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{t(event.dateKey)}</p>
                           </div>
                           
                           <div className="flex flex-col items-center p-6 rounded-3xl bg-background/40 border border-white/5">
                             <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/10 shadow-lg mb-4" style={{ color: 'var(--primary)' }}>
                               <Clock className="w-7 h-7" />
                             </div>
-                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1">Horário</p>
-                            <p className="text-xl font-bold tracking-tight">{t(event.timeKey)}</p>
+                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1" style={{ color: 'var(--text-secondary)' }}>{t('eventTimeLabel')}</p>
+                            <p className="text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{t(event.timeKey)}</p>
                           </div>
 
                           <div className="flex flex-col items-center p-6 rounded-3xl bg-background/40 border border-white/5 md:col-span-2 lg:col-span-1">
                             <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/10 shadow-lg mb-4" style={{ color: 'var(--primary)' }}>
                               <MapPin className="w-7 h-7" />
                             </div>
-                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1">Localização</p>
-                            <p className="text-xl font-bold tracking-tight">{t(event.locationKey)}</p>
+                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1" style={{ color: 'var(--text-secondary)' }}>{t('eventLocationLabel')}</p>
+                            <p className="text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{t(event.locationKey)}</p>
                           </div>
                         </div>
                       </div>
@@ -147,8 +152,8 @@ const UpcomingEvents = ({ id }) => {
                           {t(event.footerKey)} 🚀
                         </p>
                         <motion.a
-                          whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(124, 58, 237, 0.5)" }}
-                          whileTap={{ scale: 0.95 }}
+                          whileHover={!reducedMotion ? { scale: 1.05, boxShadow: "0 0 40px rgba(124, 58, 237, 0.5)" } : undefined}
+                          whileTap={!reducedMotion ? { scale: 0.95 } : undefined}
                           href={event.link}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -158,7 +163,7 @@ const UpcomingEvents = ({ id }) => {
                           }}
                         >
                           {t('joinEvent')}
-                          <ExternalLink className="ml-4 w-8 h-8" />
+                          <ExternalLink className="ml-4 w-8 h-8" aria-hidden="true" />
                         </motion.a>
                       </div>
                     </div>

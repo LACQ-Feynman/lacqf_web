@@ -3,6 +3,11 @@ import Navigation from "@/ui/components/Navigation";
 import UpcomingEvents from "@/ui/components/UpcomingEvents";
 import Events from "@/ui/components/Events";
 
+export const metadata = {
+  title: 'Eventos de Computação Quântica',
+  description: 'Confira os próximos eventos e as iniciativas realizadas pela comunidade LACQ Feynman.',
+};
+
 export default function EventosPage() {
   return (
     <Layout>

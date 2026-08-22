@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getAssetPath } from '@/utils/assets';
 import { useLanguage } from '@/contexts/LanguageContext';
 import QuantumText from "./QuantumText";
+import { EXTERNAL_LINKS } from '@/utils/links';
 
 const motivosKeys = [
   {
@@ -86,7 +87,7 @@ const Patronum = ({ id }) => {
               ))}
             </ul>
             <a
-              href="https://pt.wikipedia.org/wiki/Richard_Feynman"
+              href={EXTERNAL_LINKS.feynmanLegacy}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-gradient-to-r text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition text-lg"
@@ -103,7 +104,7 @@ const Patronum = ({ id }) => {
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl" style={{ backgroundColor: 'var(--feynman-card-bg)' }}>
               <Image
                 src={getAssetPath("/images/backgrounds/richard-feynman.webp")}
-                alt="Richard Feynman"
+                alt={t('feynmanImageAlt')}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-center"

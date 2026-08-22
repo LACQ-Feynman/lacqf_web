@@ -2,20 +2,22 @@
 
 import React from 'react';
 import { IconBrandWhatsapp } from '@tabler/icons-react';
-
-const whatsappLink = "https://chat.whatsapp.com/G2L3iYI8l6qD8n9z";
+import { useLanguage } from '@/contexts/LanguageContext';
+import { EXTERNAL_LINKS } from '@/utils/links';
 
 const FloatingWhatsapp = () => {
+  const { t } = useLanguage();
+
   return (
     <a
-      href={whatsappLink}
+      href={EXTERNAL_LINKS.whatsapp.community}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Entre no grupo do WhatsApp"
+      aria-label={t('whatsappJoinLabel')}
       className="fixed bottom-6 left-6 z-50 group md:hidden"
     >
       <div className="w-14 h-14 flex items-center justify-center rounded-full bg-green-500 shadow-lg hover:scale-105 hover:bg-green-600 transition-all duration-200 border-4 border-white/80 dark:border-gray-900/80">
-        <IconBrandWhatsapp className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-200" />
+        <IconBrandWhatsapp className="w-10 h-10 text-white group-hover:scale-110 transition-transform duration-200" aria-hidden="true" />
       </div>
     </a>
   );

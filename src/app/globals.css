@@ -1,3 +1,4 @@
+@config "../../tailwind.config.js";
 @import "tailwindcss";
 
 /* Theme variables — Light mode */
@@ -154,34 +155,7 @@
   .bg-warning { background-color: var(--warning); }
   .text-warning-foreground { color: var(--warning-foreground); }
   
-  /* Language Dropdown Styles */
-  .lang-dropdown-btn, 
-  .lang-dropdown-item {
-    color: var(--text) !important;
-  }
-  
-  .dark .lang-dropdown-btn,
-  .dark .lang-dropdown-item {
-    color: var(--text-secondary) !important;
-  }
-  
-  /* Language Dropdown Hover Effect */
-  .lang-dropdown-btn:hover {
-    background-color: #7C3AEDB3 !important; /* 70% opacity of primary purple #7C3AED */
-  }
-  
-  .dark .lang-dropdown-btn:hover {
-    background-color: #9F7AEA80 !important; /* 50% opacity of dark mode primary purple #9F7AEA */
-  }
-  
-  .lang-dropdown-item:hover {
-    background-color: #7C3AEDB3 !important; /* 70% opacity of primary purple #7C3AED */
-  }
-  
-  .dark .lang-dropdown-item:hover {
-    background-color: #9F7AEA80 !important; /* 50% opacity of dark mode primary purple #9F7AEA */
-  }
-  
+
 }
 
 /* View Transitions — circular expansion animation on theme toggle */
@@ -568,4 +542,21 @@ body.mobile-preview-active {
 
 .animate-fade-in {
   animation: fade-in 0.3s ease-out;
+}
+
+/* Respect users who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
 }

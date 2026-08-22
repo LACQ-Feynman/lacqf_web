@@ -35,9 +35,10 @@ const WhoWeAre = ({ id }) => {
             <div className="relative">
               <Image
                 src={getAssetPath("/images/lacqf/quantum research.webp")}
-                alt="Pesquisa colaborativa"
+                alt={t('collaborativeResearchAlt')}
                 width={600}
                 height={400}
+                sizes="(max-width: 1024px) 100vw, 45vw"
                 className="rounded-2xl object-cover shadow-xl w-full h-full"
                 loading="lazy"
               />
@@ -46,9 +47,10 @@ const WhoWeAre = ({ id }) => {
               <div className="relative">
                 <Image
                   src={getAssetPath("/images/lacqf/workshop.webp")}
-                  alt="Workshop"
+                  alt={t('workshopAlt')}
                   width={300}
                   height={200}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   className="rounded-2xl object-cover shadow-xl w-full h-full"
                   loading="lazy"
                 />
@@ -56,9 +58,10 @@ const WhoWeAre = ({ id }) => {
               <div className="relative">
                 <Image
                   src={getAssetPath("/images/lacqf/team meeting.webp")}
-                  alt="Reuniões em equipe"
+                  alt={t('teamMeetingAlt')}
                   width={300}
                   height={200}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   className="rounded-2xl object-cover shadow-xl w-full h-full"
                   loading="lazy"
                 />

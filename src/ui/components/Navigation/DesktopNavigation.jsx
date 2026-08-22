@@ -12,7 +12,7 @@ const DesktopNavigation = ({ routes, pathname }) => {
       className="flex gap-8 text-sm font-medium transition-colors duration-300 focus:ring-2 focus:rounded items-center"
       style={{ color: 'var(--text)' }}
       role="navigation"
-      aria-label="Menu principal"
+      aria-label={t('mainMenuLabel')}
     >
       {routes.map((route) => (
         <MagneticWrapper key={route.id} strength={0.2}>

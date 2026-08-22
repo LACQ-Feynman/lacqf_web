@@ -1,6 +1,3 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Layout from "@/ui/components/Layout";
 import Navigation from "@/ui/components/Navigation";
 
@@ -12,41 +9,9 @@ import UpcomingEvents from "@/ui/components/UpcomingEvents";
 import HomeCTA from "@/ui/components/HomeCTA";
 
 export default function Home() {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    // Track scroll progress for the top progress bar.
-    let scrollThrottled = false;
-
-    const handleScroll = () => {
-      if (!scrollThrottled) {
-        scrollThrottled = true;
-        requestAnimationFrame(() => {
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const progress = (scrollTop / (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100;
-          setScrollProgress(progress);
-          scrollThrottled = false;
-        });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <Layout>
       <>
-        {/* Progress bar */}
-        <div
-          className="fixed top-0 left-0 h-1 z-50 scroll-progress-bar"
-          style={{ transform: `scaleX(${scrollProgress / 100})` }}
-          role="progressbar"
-          aria-valuenow={scrollProgress}
-          aria-valuemin="0"
-          aria-valuemax="100"
-          aria-label="Progresso de rolagem"
-        />
         <Navigation />
         <div id="main-content" tabIndex="-1">
           <Hero id="hero" />

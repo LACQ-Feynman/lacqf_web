@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Vercel handles the base path automatically for the root domain.
-  // We remove the GH Pages specific prefixes.
-  images: {
-    unoptimized: true,
-    remotePatterns: [
-      { protocol: 'https', hostname: 'placehold.co' }
-    ],
-  },
+  // Vercel serves the site from the root domain; BASE_PATH remains empty
+  // for compatibility with the existing asset helper.
   env: {
     BASE_PATH: '',
   },

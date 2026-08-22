@@ -18,13 +18,37 @@ const MobileNavigation = ({
   useEffect(() => {
     if (!isMobileMenuOpen) return undefined;
 
-    const firstFocusable = menuRef.current?.querySelector('a, button');
+    const getFocusableElements = () => Array.from(
+      menuRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ) || []
+    );
+    const firstFocusable = getFocusableElements()[0];
     const focusFrame = window.requestAnimationFrame(() => firstFocusable?.focus());
 
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') {
+      // Let the nested language dropdown handle its own Escape key first.
+      if (event.key === 'Escape' && !event.target.closest('[role="menu"]')) {
         setIsMobileMenuOpen(false);
         menuButtonRef?.current?.focus();
+      }
+    };
+
+    const keepFocusInsideMenu = (event) => {
+      if (event.key !== 'Tab') return;
+
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
       }
     };
 
@@ -38,11 +62,13 @@ const MobileNavigation = ({
     };
 
     document.addEventListener('keydown', closeOnEscape);
+    document.addEventListener('keydown', keepFocusInsideMenu);
     document.addEventListener('pointerdown', closeOnOutsideClick);
 
     return () => {
       window.cancelAnimationFrame(focusFrame);
       document.removeEventListener('keydown', closeOnEscape);
+      document.removeEventListener('keydown', keepFocusInsideMenu);
       document.removeEventListener('pointerdown', closeOnOutsideClick);
     };
   }, [isMobileMenuOpen, menuButtonRef, setIsMobileMenuOpen]);
@@ -64,12 +90,12 @@ const MobileNavigation = ({
       aria-modal="true"
       aria-labelledby="mobile-nav-title"
     >
-      <h3 id="mobile-nav-title" className="sr-only">Menu de navegação móvel</h3>
+      <h3 id="mobile-nav-title" className="sr-only">{t('mobileMenuTitle')}</h3>
       <nav
         className="flex flex-col gap-4"
         style={{ color: 'var(--text)' }}
         role="navigation"
-        aria-label="Menu mobile"
+        aria-label={t('mobileMenuLabel')}
       >
         {routes.map((route) => (
           <Link
@@ -89,7 +115,7 @@ const MobileNavigation = ({
         ))}
       </nav>
       <div className="flex gap-4 mt-6 px-4 justify-between items-center border-t pt-4" style={{ borderColor: 'var(--border-light)' }}>
-        <p className="text-xs uppercase tracking-widest opacity-50 font-bold">Idioma</p>
+        <p className="text-xs uppercase tracking-widest opacity-50 font-bold">{t('languageLabel')}</p>
         <LanguageDropdown />
       </div>
     </div>

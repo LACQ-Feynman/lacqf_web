@@ -8,41 +8,42 @@ import {
     GraduationCap,
     Users,
     ChevronDown,
-    UserPlus,
-    Youtube,
     BookOpen,
     MessageCircle
 } from 'lucide-react';
-import { IconBrandWhatsapp } from '@tabler/icons-react';
+import { IconBrandWhatsapp, IconBrandYoutube } from '@tabler/icons-react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { EXTERNAL_LINKS } from '@/utils/links';
 
 const MembershipSection = ({ id }) => {
     const [openIdx, setOpenIdx] = useState(0);
     const { t } = useLanguage();
+    const reducedMotion = useReducedMotion();
 
-    const whatsappGroupLink = "https://chat.whatsapp.com/G2L3iYI8l6qD8n9z";
+    const whatsappGroupLink = EXTERNAL_LINKS.whatsapp.community;
 
     // Get base path for GitHub Pages compatibility
     const basePath = process.env.BASE_PATH || '';
 
     const motivos = [
         {
-            icon: <Rocket className="w-6 h-6 text-primary-500" />,
+            icon: <Rocket className="w-6 h-6 text-primary" />,
             titulo: t('pioneerTitle'),
             texto: t('pioneerText'),
         },
         {
-            icon: <Atom className="w-6 h-6 text-primary-500" />,
+            icon: <Atom className="w-6 h-6 text-primary" />,
             titulo: t('researchTitle'),
             texto: t('researchText'),
         },
         {
-            icon: <GraduationCap className="w-6 h-6 text-primary-500" />,
+            icon: <GraduationCap className="w-6 h-6 text-primary" />,
             titulo: t('educationTitle'),
             texto: t('educationText'),
         },
         {
-            icon: <Users className="w-6 h-6 text-primary-500" />,
+            icon: <Users className="w-6 h-6 text-primary" />,
             titulo: t('networkingTitle'),
             texto: (
                 <div className="space-y-4">
@@ -55,7 +56,7 @@ const MembershipSection = ({ id }) => {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-xs font-bold rounded-lg transition-colors shadow-sm"
                         >
-                            <IconBrandWhatsapp className="w-4 h-4" />
+                            <IconBrandWhatsapp className="w-4 h-4" aria-hidden="true" />
                             {t('whatsappGroupButton')}
                         </a>
                     </div>
@@ -66,21 +67,21 @@ const MembershipSection = ({ id }) => {
 
     const resources = [
         {
-            title: "YouTube",
-            icon: <Youtube className="w-5 h-5" />,
-            link: "https://www.youtube.com/@lacq_feynman",
+            titleKey: 'resourceYoutube',
+            icon: <IconBrandYoutube className="w-5 h-5" />,
+            link: EXTERNAL_LINKS.youtube,
             color: "red"
         },
         {
-            title: "Mentores",
+            titleKey: 'resourceMentors',
             icon: <Users className="w-5 h-5" />,
-            link: "https://shorturl.at/p5Oti",
+            link: EXTERNAL_LINKS.mentors,
             color: "indigo"
         },
         {
-            title: "Materiais",
+            titleKey: 'resourceMaterials',
             icon: <BookOpen className="w-5 h-5" />,
-            link: "https://shorturl.at/BVmTs",
+            link: EXTERNAL_LINKS.materials,
             color: "purple"
         }
     ];
@@ -103,7 +104,7 @@ const MembershipSection = ({ id }) => {
                     <h2 className="text-4xl md:text-5xl font-title font-bold mb-4">
                         <span className="text-primary">{t('joinCommunityTitle').split(' ')[0]}</span> {t('joinCommunityTitle').substring(t('joinCommunityTitle').indexOf(' ') + 1)}
                     </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+                    <p className="text-lg text-theme-secondary max-w-2xl mx-auto mb-8">
                         {t('joinCommunitySubtitle')}
                     </p>
 
@@ -117,7 +118,7 @@ const MembershipSection = ({ id }) => {
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all shadow-md active:scale-95"
                             >
-                                <IconBrandWhatsapp className="w-6 h-6" />
+                                <IconBrandWhatsapp className="w-6 h-6" aria-hidden="true" />
                                 {t('whatsappGroupButton')}
                             </a>
                         </div>
@@ -134,43 +135,70 @@ const MembershipSection = ({ id }) => {
                                 <Rocket className="w-6 h-6 text-primary" />
                                 {t('whyLACQFTitle')}
                             </h3>
-                            <p className="text-muted-foreground">
+                            <p className="text-theme-secondary">
                                 {t('whyLACQFSubtitle')}
                             </p>
                         </div>
 
                         <div className="flex flex-col gap-4">
                             {motivos.map((item, idx) => (
-                                <div
+                                <motion.div
                                     key={idx}
-                                    className={`border rounded-xl overflow-hidden transition-all duration-300 ${openIdx === idx ? 'bg-surface border-primary/30 shadow-md' : 'bg-surface/50 border-border/50 hover:bg-surface'
+                                    layout
+                                    transition={{
+                                        layout: {
+                                            duration: reducedMotion ? 0 : 0.35,
+                                            ease: [0.16, 1, 0.3, 1],
+                                        },
+                                    }}
+                                    className={`border rounded-xl overflow-hidden ${openIdx === idx ? 'bg-surface border-primary/30 shadow-md' : 'bg-surface/50 border-border/50 hover:bg-surface'
                                         }`}
                                 >
                                     <button
+                                        type="button"
                                         className="w-full flex items-center justify-between gap-4 px-6 py-4 focus:outline-none"
                                         onClick={() => setOpenIdx(openIdx === idx ? -1 : idx)}
+                                        aria-expanded={openIdx === idx}
+                                        aria-controls={`membership-panel-${idx}`}
                                     >
                                         <div className="flex items-center gap-4 text-left">
-                                            <div className={`p-2 rounded-lg transition-colors ${openIdx === idx ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                                            <div className={`p-2 rounded-lg transition-colors ${openIdx === idx ? 'bg-primary/10 text-primary' : 'bg-theme-secondary text-theme-secondary'}`}>
                                                 {item.icon}
                                             </div>
-                                            <span className={`text-base font-semibold ${openIdx === idx ? 'text-foreground' : 'text-muted-foreground'}`}>
+                                            <span className={`text-base font-semibold ${openIdx === idx ? 'text-theme-primary' : 'text-theme-secondary'}`}>
                                                 {item.titulo}
                                             </span>
                                         </div>
-                                        <ChevronDown
-                                            className={`w-5 h-5 transition-transform duration-300 ${openIdx === idx ? 'rotate-180 text-primary' : 'text-muted-foreground'}`}
-                                        />
+                                        <motion.span
+                                            animate={{ rotate: openIdx === idx ? 180 : 0 }}
+                                            transition={{ duration: reducedMotion ? 0 : 0.25 }}
+                                            className="flex"
+                                            aria-hidden="true"
+                                        >
+                                            <ChevronDown className={`w-5 h-5 ${openIdx === idx ? 'text-primary' : 'text-theme-secondary'}`} />
+                                        </motion.span>
                                     </button>
-                                    <div
-                                        className={`transition-all duration-300 ease-in-out ${openIdx === idx ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-                                            }`}
-                                    >
-                                        <div className="px-6 pb-5 pt-0 text-muted-foreground text-sm leading-relaxed pl-[4.5rem]">
-                                            {item.texto}
-                                        </div>
-                                    </div>
-                                </div>
+                                    <AnimatePresence initial={false} mode="sync">
+                                        {openIdx === idx && (
+                                            <motion.div
+                                                key={`membership-panel-${idx}`}
+                                                id={`membership-panel-${idx}`}
+                                                initial={reducedMotion ? false : { height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={reducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                                                transition={{
+                                                    height: { duration: reducedMotion ? 0 : 0.35, ease: [0.16, 1, 0.3, 1] },
+                                                    opacity: { duration: reducedMotion ? 0 : 0.2 },
+                                                }}
+                                                className="overflow-hidden"
+                                            >
+                                                <div className="px-6 pb-5 pt-0 text-theme-secondary text-sm leading-relaxed pl-[4.5rem]">
+                                                    {item.texto}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
@@ -180,12 +208,12 @@ const MembershipSection = ({ id }) => {
                         <div className="absolute -inset-1 bg-gradient-to-r from-green-500 to-primary rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                         <div className="relative bg-surface border border-border rounded-[2.5rem] p-8 md:p-12 shadow-2xl text-center">
                             <div className="w-20 h-20 bg-green-500/10 text-green-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner">
-                                <IconBrandWhatsapp className="w-12 h-12" />
+                                <IconBrandWhatsapp className="w-12 h-12 text-success" aria-hidden="true" />
                             </div>
                             <h3 className="text-2xl md:text-3xl font-title font-bold mb-4">
                                 {t('joinCommunityTitle')}
                             </h3>
-                            <p className="text-muted-foreground mb-10 leading-relaxed">
+                            <p className="text-theme-secondary mb-10 leading-relaxed">
                                 {t('whatsappGroupCTA')}
                             </p>
                             <a 
@@ -195,12 +223,12 @@ const MembershipSection = ({ id }) => {
                                 className="inline-flex items-center justify-center w-full px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-2xl font-black text-lg shadow-xl shadow-green-600/20 transition-all transform hover:-translate-y-1 active:scale-95"
                             >
                                 {t('whatsappGroupButton')}
-                                <MessageCircle className="ml-2 w-6 h-6" />
+                                <MessageCircle className="ml-2 w-6 h-6" aria-hidden="true" />
                             </a>
                             
-                            <div className="mt-8 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-60">
+                            <div className="mt-8 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-theme-secondary opacity-60">
                                 <Users className="w-4 h-4" />
-                                <span>+1.200 Membros Ativos</span>
+                                <span>{t('activeMembersLabel')}</span>
                             </div>
                         </div>
                     </div>
@@ -211,16 +239,19 @@ const MembershipSection = ({ id }) => {
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
                         {/* Logo + Text Section - Left */}
                         <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 text-center sm:text-left">
-                            <Image
-                                src={`${basePath}/images/lacqf/logo completa.webp`}
-                                alt="LACQ Feynman Logo Completa"
-                                width={200}
-                                height={48}
-                                className="h-12 w-auto object-contain"
-                            />
+                            <div className="relative w-[200px] max-w-full h-12 shrink-0">
+                                <Image
+                                    src={`${basePath}/images/lacqf/logo completa.webp`}
+                                    alt="LACQ Feynman Logo Completa"
+                                    fill
+                                    sizes="200px"
+                                    loading="lazy"
+                                    className="object-contain"
+                                />
+                            </div>
                             <div className="text-center sm:text-left">
                                 <h4 className="text-xl font-title font-semibold mb-1">{t('exploreMoreTitle')}</h4>
-                                <p className="text-sm text-muted-foreground">{t('exploreMoreSubtitle')}</p>
+                                <p className="text-sm text-theme-secondary">{t('exploreMoreSubtitle')}</p>
                             </div>
                         </div>
 
@@ -245,8 +276,8 @@ const MembershipSection = ({ id }) => {
                                         <div className={`p-2 rounded-lg group-hover:scale-110 transition-transform ${activeColorClass.split(' ').slice(0, 2).join(' ')}`}>
                                             {res.icon}
                                         </div>
-                                        <span className="font-medium text-sm group-hover:text-foreground text-muted-foreground transition-colors">
-                                            {res.title}
+                                        <span className="font-medium text-sm group-hover:text-theme-primary text-theme-secondary transition-colors">
+                                            {t(res.titleKey)}
                                         </span>
                                     </a>
                                 )

@@ -1,86 +1,140 @@
-# Guia de Gerenciamento de Eventos - LACQ Feynman
+# Guia de gerenciamento de eventos — LACQ Feynman
 
-Este documento fornece instruções e snippets de código para adicionar, remover ou mover eventos entre as seções "Próximos Eventos" e "Eventos Já Realizados".
+Este documento explica como adicionar, remover ou mover eventos entre as seções de próximos eventos e eventos realizados sem quebrar i18n, acessibilidade ou otimização.
 
----
+## 1. Próximos eventos
 
-## 1. Próximos Eventos (Upcoming Events)
 **Arquivo:** `src/ui/components/UpcomingEvents.jsx`
 
-### Como Adicionar um Evento
-Adicione um novo objeto ao array `upcomingEvents`.
+Os próximos eventos ficam no array `upcomingEvents`. Cada evento usa chaves de tradução:
 
 ```javascript
 const upcomingEvents = [
   {
-    titleKey: "upcomingEventKeyTitle",      // Chave no JSON de tradução
-    subtitleKey: "upcomingEventKeySubtitle",
-    topicKey: "upcomingEventKeyTopic",
-    dateKey: "upcomingEventKeyDate",
-    timeKey: "upcomingEventKeyTime",
-    locationKey: "upcomingEventKeyLocation", // Opcional
-    descriptionKey: "upcomingEventKeyDesc",
-    footerKey: "upcomingEventKeyFooter",
-    link: "https://link-do-evento.com",
-    image: getAssetPath("/images/caminho/da/imagem.webp"),
+    titleKey: 'upcomingEventKeyTitle',
+    subtitleKey: 'upcomingEventKeySubtitle',
+    topicKey: 'upcomingEventKeyTopic',
+    dateKey: 'upcomingEventKeyDate',
+    timeKey: 'upcomingEventKeyTime',
+    locationKey: 'upcomingEventKeyLocation',
+    descriptionKey: 'upcomingEventKeyDescription',
+    footerKey: 'upcomingEventKeyFooter',
+    link: EXTERNAL_LINKS.upcomingEvent,
   },
 ];
 ```
 
-### Como Remover Todos os Eventos (Estado Vazio)
-Para exibir a mensagem "Novos eventos serão anunciados em breve", deixe o array vazio:
+Para um novo link externo recorrente, adicione primeiro a URL em `src/utils/links.js` em vez de espalhá-la pelos componentes.
+
+Para um evento com imagem local, importe `getAssetPath` e use uma imagem otimizada com `next/image`. Não crie URLs ou assets fictícios.
+
+### Estado vazio
+
+Para exibir o estado sem próximos eventos:
+
 ```javascript
 const upcomingEvents = [];
 ```
 
----
+As chaves `noUpcomingEventsTitle` e `noUpcomingEventsText` já existem nos locales.
 
-## 2. Eventos Já Realizados (Past Events)
+## 2. Eventos realizados
+
 **Arquivo:** `src/ui/components/Events.jsx`
 
-### Como Adicionar um Evento com Vídeo (YouTube)
-Adicione à lista `events` no topo do arquivo:
+### Evento com vídeo do YouTube
+
 ```javascript
 {
-  titleKey: "pastEventTitle",
-  dateKey: "pastEventDate",
-  descriptionKey: "pastEventDesc",
-  youtubeId: "ID_DO_VIDEO", // Ex: XAKeFgc6KFM
-},
+  titleKey: 'pastEventTitle',
+  dateKey: 'pastEventDate',
+  descriptionKey: 'pastEventDescription',
+  youtubeId: 'ID_DO_VIDEO',
+}
 ```
 
-### Como Adicionar um Evento com Imagem
+O iframe é carregado com `loading="lazy"` quando o card é expandido.
+
+### Evento com imagem
+
 ```javascript
 {
-  titleKey: "pastEventTitle",
-  dateKey: "pastEventDate",
-  descriptionKey: "pastEventDesc",
-  image: getAssetPath("/images/lacqf/imagem.webp"),
-},
+  titleKey: 'pastEventTitle',
+  dateKey: 'pastEventDate',
+  descriptionKey: 'pastEventDescription',
+  image: getAssetPath('/images/lacqf/event-image.webp'),
+}
 ```
 
----
+Imagens de eventos devem usar `next/image`, `fill`, um wrapper relativo com proporção definida, `sizes` e `loading="lazy"`. Não aplicar `width` ou `height` assimétricos via style no `Image`.
 
-## 3. Traduções (Locales)
-**Arquivos:** `src/locales/pt-BR.json`, `en.json`, `es.json`
+## 3. Traduções
 
-Sempre adicione as chaves correspondentes nos três arquivos para garantir a consistência do i18n.
+Adicione as chaves correspondentes nos três arquivos:
 
-**Exemplo de estrutura:**
+- `src/locales/pt-BR.json`
+- `src/locales/en.json`
+- `src/locales/es.json`
+
+Exemplo:
+
 ```json
-"upcomingEventUnisoTitle": "UNISO QUANTUM DAY",
-"upcomingEventUnisoSubtitle": "World Quantum Day",
-"upcomingEventUnisoTopic": "Evento pioneiro...",
-"upcomingEventUnisoDate": "07 de Abril de 2026",
-"upcomingEventUnisoTime": "08h00 às 20h00 (BRT)",
-"upcomingEventUnisoDescription": "Descrição curta...",
-"upcomingEventUnisoFooter": "World Quantum Day 2026"
+"upcomingEventKeyTitle": "Nome do evento",
+"upcomingEventKeySubtitle": "Subtítulo",
+"upcomingEventKeyTopic": "Tema do evento",
+"upcomingEventKeyDate": "07 de Abril de 2026",
+"upcomingEventKeyTime": "08h00 às 20h00 (BRT)",
+"upcomingEventKeyLocation": "Sorocaba, Brasil",
+"upcomingEventKeyDescription": "Descrição curta...",
+"upcomingEventKeyFooter": "Mensagem final"
 ```
 
----
+Não deixe textos de interface, labels de data/horário/localização ou textos alternativos somente em português. Use `t('chave')`.
 
-## Regras de Consistência Visual
-1. **Imagens:** Use preferencialmente o formato `.webp`.
-2. **Textos:** Títulos de eventos próximos devem usar `font-title` (Orbitron).
-3. **Botões:** Devem usar `MagneticWrapper` para interatividade premium em desktop.
-4. **QuantumText:** Use o componente `<QuantumText text={t('key')} />` para títulos de seções para manter o efeito de "superposição".
+## 4. Regras de comportamento e acessibilidade
+
+- O componente `Events` possui cards expansíveis.
+- Botões de expansão devem ter `type="button"`.
+- Mantenha `aria-expanded` e `aria-controls` sincronizados.
+- Use IDs únicos para os painéis expandidos.
+- Ícones decorativos devem usar `aria-hidden="true"`.
+- Links externos devem possuir `target="_blank"` e `rel="noopener noreferrer"`.
+- O texto visível do link deve fornecer um nome acessível adequado.
+- Não introduza smooth scroll.
+- Respeite `prefers-reduced-motion`; não adicione animações inevitáveis ou infinitas sem fallback.
+
+## 5. Regras visuais e de performance
+
+- Preserve o padrão visual atual e o uso de `font-title` nos títulos.
+- Prefira imagens `.webp` ou outro formato eficiente já aprovado pelo projeto.
+- Defina `sizes` de acordo com o layout real.
+- Use `loading="lazy"` em imagens e iframes abaixo da dobra.
+- Efeitos Framer Motion devem continuar condicionados por `useReducedMotion` quando forem adicionados.
+- Evite blur, sombras ou animações infinitas adicionais sem avaliar custo mobile.
+- O `QuantumText` pode ser usado em títulos de seção quando o efeito de estabilização for apropriado.
+- `MagneticWrapper` só deve ser usado para interações de mouse em desktop; ele já ignora ponteiros não-mouse e movimento reduzido.
+
+## 6. Validação após alterações
+
+Execute:
+
+```bash
+npm run lint
+npm run build
+```
+
+Se houver alteração de dependência ou lockfile:
+
+```bash
+npm ci
+npm audit
+npm audit --omit=dev
+```
+
+Confirme também manualmente:
+
+- Expansão e fechamento do card.
+- Foco e teclado.
+- Renderização nos três idiomas.
+- Carregamento lazy do vídeo/imagem.
+- Ausência de warnings de proporção do `next/image`.

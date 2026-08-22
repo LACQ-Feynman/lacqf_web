@@ -52,16 +52,17 @@ export default function Hero({ id }) {
 
         {/* Subtitle */}
         <p className="text-lg sm:text-xl lg:text-2xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed mb-12">
-          <QuantumText text="Liga Acadêmica de Computação Quântica" />
+          <QuantumText text={t('heroOrganization')} />
         </p>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <MagneticWrapper>
             <button
+              type="button"
               onClick={() => {
                 const aboutSection = document.getElementById('whoWeAre');
-                aboutSection?.scrollIntoView({ behavior: 'smooth' });
+                aboutSection?.scrollIntoView();
               }}
               className="group px-10 py-4 bg-primary hover:bg-primary-light text-white rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-primary/40 flex items-center gap-2"
             >
@@ -83,25 +84,13 @@ export default function Hero({ id }) {
         </div>
 
         {/* Scroll indicator */}
-        <div className="mt-16 opacity-50">
+        <div className="mt-16 opacity-50" aria-hidden="true">
           <div className="w-6 h-10 border-2 border-white/50 rounded-full mx-auto flex justify-center">
             <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <style jsx>{`
-        @keyframes scroll {
-          0% { transform: translateY(0); }
-          50% { transform: translateY(10px); }
-          100% { transform: translateY(0); }
-        }
-
-        .scroll-indicator {
-          animation: scroll 2s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,38 +1,43 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useSpring } from 'framer-motion';
 
 export default function MagneticWrapper({ children, strength = 0.3, className = "" }) {
   const ref = useRef(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const boundsRef = useRef(null);
+  const reducedMotion = useReducedMotion();
+  const x = useSpring(0, { stiffness: 150, damping: 15, mass: 0.1 });
+  const y = useSpring(0, { stiffness: 150, damping: 15, mass: 0.1 });
 
-  const handleMouseMove = (e) => {
-    // Disable on mobile/tablet for performance (breakpoint lg: 1024px)
-    if (typeof window !== 'undefined' && window.innerWidth < 1024) return;
-
-    const { clientX, clientY } = e;
-    const { width, height, left, top } = ref.current.getBoundingClientRect();
-    
-    // Calculate distance from center
-    const x = (clientX - (left + width / 2)) * strength;
-    const y = (clientY - (top + height / 2)) * strength;
-    
-    setPosition({ x, y });
+  const handlePointerEnter = (event) => {
+    if (reducedMotion || event.pointerType !== 'mouse' || !ref.current) return;
+    boundsRef.current = ref.current.getBoundingClientRect();
   };
 
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
+  const handlePointerMove = (event) => {
+    if (reducedMotion || event.pointerType !== 'mouse' || !boundsRef.current) return;
+
+    const { clientX, clientY } = event;
+    const { width, height, left, top } = boundsRef.current;
+    x.set((clientX - (left + width / 2)) * strength);
+    y.set((clientY - (top + height / 2)) * strength);
+  };
+
+  const resetPosition = () => {
+    boundsRef.current = null;
+    x.set(0);
+    y.set(0);
   };
 
   return (
     <motion.div
       ref={ref}
       className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPosition}
+      style={{ x, y }}
     >
       {children}
     </motion.div>

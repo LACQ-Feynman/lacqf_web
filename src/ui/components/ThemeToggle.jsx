@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const AnimatedThemeToggler = ({
   className = '',
@@ -12,6 +13,7 @@ export const AnimatedThemeToggler = ({
   // During the transition, we set a global flag to let heavy components (Hero)
   // throttle work and keep the experience smooth.
   const { isDark, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const buttonRef = useRef(null);
 
   // State to prevent hydration mismatch - this is safe to use in useEffect with empty dependency array
@@ -97,7 +99,7 @@ export const AnimatedThemeToggler = ({
         }
       };
 
-    } catch (error) {
+    } catch {
       // If anything fails, switch instantly and clear the flag.
       toggleTheme();
       if (typeof window !== 'undefined') {
@@ -108,14 +110,15 @@ export const AnimatedThemeToggler = ({
 
   // Use consistent text during server-side rendering and early hydration
   // Then switch to dynamic text after hydration is complete
-  const themeText = hasHydrated ? (isDark ? 'Alternar para modo claro' : 'Alternar para modo escuro') : 'Alternar tema';
-  const ariaLabel = hasHydrated ? (isDark ? 'Ativar modo claro' : 'Ativar modo escuro') : 'Alternar tema';
-  const title = hasHydrated ? (isDark ? 'Alternar para modo claro (Ctrl+T)' : 'Alternar para modo escuro (Ctrl+T)') : 'Alternar tema (Ctrl+T)';
-  const currentTheme = hasHydrated ? (isDark ? 'dark' : 'light') : 'theme';
+  const themeText = hasHydrated ? (isDark ? t('themeSwitchToLight') : t('themeSwitchToDark')) : t('themeToggle');
+  const ariaLabel = hasHydrated ? (isDark ? t('themeActivateLight') : t('themeActivateDark')) : t('themeToggle');
+  const title = hasHydrated ? (isDark ? t('themeSwitchToLightShortcut') : t('themeSwitchToDarkShortcut')) : t('themeToggleShortcut');
+  const currentTheme = hasHydrated ? (isDark ? t('themeDark') : t('themeLight')) : t('themeCurrent');
 
   return (
     <div className="relative">
       <button
+        type="button"
         ref={buttonRef}
         onClick={handleToggle}
         className={`
@@ -182,7 +185,8 @@ export const AnimatedThemeToggler = ({
         className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 shadow-sm animate-pulse ${
           isDark ? 'theme-indicator-dark' : 'theme-indicator-light'
         }`}
-        title={`Current theme: ${currentTheme}`}
+        title={currentTheme}
+        aria-hidden="true"
       />
     </div>
   );

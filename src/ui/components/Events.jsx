@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { CalendarDays, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { getAssetPath } from "@/utils/assets";
 import QuantumText from "./QuantumText";
@@ -39,9 +39,10 @@ const events = [
   },
 ];
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, index }) => {
   const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   return (
     <div
@@ -63,10 +64,10 @@ const EventCard = ({ event }) => {
             <div
               className="flex items-center"
               style={{ color: 'var(--text-muted)' }}
-            >
-              <CalendarDays
+            >              <CalendarDays
                 className="w-5 h-5 mr-2"
                 style={{ color: 'var(--primary)' }}
+                aria-hidden="true"
               />
               <span className="font-medium">{t(event.dateKey)}</span>
             </div>
@@ -83,11 +84,15 @@ const EventCard = ({ event }) => {
                 }}
               >
                 {t('eventsDetails')}
-                <ExternalLink className="ml-2 w-4 h-4" />
+                <ExternalLink className="ml-2 w-4 h-4" aria-hidden="true" />
               </a>
             ) : (
               <button
-                onClick={() => setIsExpanded(!isExpanded)}
+                type="button"
+                onClick={() => setIsExpanded(!isExpanded)
+                }
+                aria-expanded={isExpanded}
+                aria-controls={`event-panel-${index}`}
                 className="inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
                 style={{
                   background: 'linear-gradient(to right, var(--primary), var(--primary-dark))'
@@ -95,9 +100,9 @@ const EventCard = ({ event }) => {
               >
                 {t('eventsDetails')}
                 {isExpanded ? (
-                  <ChevronUp className="ml-2 w-4 h-4" />
+                  <ChevronUp className="ml-2 w-4 h-4" aria-hidden="true" />
                 ) : (
-                  <ChevronDown className="ml-2 w-4 h-4" />
+                  <ChevronDown className="ml-2 w-4 h-4" aria-hidden="true" />
                 )}
               </button>
             )}
@@ -107,10 +112,11 @@ const EventCard = ({ event }) => {
         <AnimatePresence mode="wait">
           {isExpanded && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
+              id={`event-panel-${index}`}
+              initial={reducedMotion ? false : { height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              exit={reducedMotion ? undefined : { height: 0, opacity: 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.4, ease: "easeInOut" }}
               className="overflow-hidden"
             >
               <div
@@ -127,6 +133,7 @@ const EventCard = ({ event }) => {
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
+                      loading="lazy"
                       className="absolute inset-0"
                     ></iframe>
                   </div>
@@ -138,6 +145,7 @@ const EventCard = ({ event }) => {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 50vw"
+                      loading="lazy"
                     />
                   </div>
                 ) : null}
@@ -184,7 +192,7 @@ const Events = ({ id }) => {
 
         <div className="space-y-8">
           {events.map((event, idx) => (
-            <EventCard key={idx} event={event} />
+            <EventCard key={idx} event={event} index={idx} />
           ))}
         </div>
 

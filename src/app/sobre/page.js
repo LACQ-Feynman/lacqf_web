@@ -3,6 +3,11 @@ import Navigation from "@/ui/components/Navigation";
 import Patronum from "@/ui/components/Patronum";
 import CoreValues from "@/ui/components/CoreValues";
 
+export const metadata = {
+  title: 'Sobre a LACQ Feynman',
+  description: 'Conheça Richard Feynman, os valores e a missão da LACQ Feynman.',
+};
+
 export default function SobrePage() {
   return (
     <Layout>

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 import companies from '@/data/mocks/companies.json';
 import universities from '@/data/mocks/universities.json';
@@ -18,31 +19,33 @@ const partners = {
   leagues,
 };
 
-const groupTitles = {
-  master: 'Parceiros',
-  icts: 'ICTs',
-  companies: 'Empresas',
-  universities: 'Universidades de nossos membros',
-  leagues: 'Ligas',
+const groupTitleKeys = {
+  master: 'partnersGroupMaster',
+  icts: 'partnersGroupIcts',
+  companies: 'partnersGroupCompanies',
+  universities: 'partnersGroupUniversities',
+  leagues: 'partnersGroupLeagues',
 };
 
 const displayOrder = ['master', 'icts', 'companies', 'universities', 'leagues'];
 const partnerCardClass = 'flex items-center justify-center hover:scale-105 transition-transform duration-300 p-6 bg-theme-secondary rounded-xl shadow-lg border border-theme-light';
 
 const PartnerImage = ({ partner, isDark }) => (
-  <Image
-    src={getAssetPath((isDark && partner.logoDark) ? partner.logoDark : partner.logo)}
-    alt={partner.name}
-    width={150}
-    height={100}
-    sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 150px"
-    style={{ width: 'auto', height: 'auto' }}
-    className="object-contain transition duration-300 max-h-12 sm:max-h-14 lg:max-h-16"
-  />
+  <div className="relative w-[150px] max-w-full h-12 sm:h-14 lg:h-16">
+    <Image
+      src={getAssetPath((isDark && partner.logoDark) ? partner.logoDark : partner.logo)}
+      alt={partner.name}
+      fill
+      sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 150px"
+      loading="lazy"
+      className="object-contain transition duration-300"
+    />
+  </div>
 );
 
 export default function Partners({ id }) {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <section
@@ -52,17 +55,17 @@ export default function Partners({ id }) {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-title font-bold text-theme-primary mb-4">
-            Nossos Parceiros
+            {t('partnersTitle')}
           </h2>
           <p className="text-lg text-theme-secondary max-w-3xl mx-auto">
-            Conheça as empresas e instituições parceiras da LACQ Feynman.
+            {t('partnersDescription')}
           </p>
         </div>
 
         {displayOrder.map((groupKey) => (
           <div key={groupKey} className="mb-16">
             <h3 className="text-2xl font-title font-semibold text-theme-primary text-center mb-10">
-              {groupTitles[groupKey]}
+              {t(groupTitleKeys[groupKey])}
             </h3>
             <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-12">
               {partners[groupKey].map((partner) => {
