@@ -1,31 +1,17 @@
 'use client';
 
-import { Calendar, Clock, ExternalLink, ArrowRight, Sparkles, MapPin } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from 'react';
+import { motion, useReducedMotion } from "framer-motion";
 import QuantumText from "./QuantumText";
-import { EXTERNAL_LINKS } from '@/utils/links';
 
-const upcomingEvents = [
-  {
-    titleKey: "upcomingEventUnisoTitle",
-    subtitleKey: "upcomingEventUnisoSubtitle",
-    topicKey: "upcomingEventUnisoTopic",
-    dateKey: "upcomingEventUnisoDate",
-    timeKey: "upcomingEventUnisoTime",
-    locationKey: "upcomingEventUnisoLocation",
-    descriptionKey: "upcomingEventUnisoDescription",
-    footerKey: "upcomingEventUnisoFooter",
-    link: EXTERNAL_LINKS.upcomingEvent,
-  },
-];
+// Nenhum evento agendado no momento: a seção exibe o estado vazio.
+// Para anunciar um novo evento, crie o card com as chaves de tradução
+// correspondentes em src/locales/*.json.
 
 const UpcomingEvents = ({ id }) => {
   const { t } = useLanguage();
   const reducedMotion = useReducedMotion();
-  const eventRef = useRef(null);
-  const eventIsInView = useInView(eventRef, { once: false, amount: 0.1 });
 
   return (
     <section
@@ -56,148 +42,40 @@ const UpcomingEvents = ({ id }) => {
           </motion.div>
         </div>
 
-        {upcomingEvents.length > 0 && !upcomingEvents[0].isPlaceholder ? (
-          <div className="space-y-12">
-            {upcomingEvents.map((event, idx) => (
-              <motion.div
-                key={idx}
-                ref={eventRef}
-                initial={reducedMotion ? false : { opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: reducedMotion ? 0 : 1, ease: [0.16, 1, 0.3, 1] }}
-                className="relative group"
-              >
-                <div
-                  className="rounded-[2rem] overflow-hidden shadow-2xl border relative bg-background/40 backdrop-blur-xl transition-all duration-700"
-                  style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    borderColor: 'var(--border-light)'
-                  }}
-                >
-                  {/* Energy Streak Animation */}
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-                    <motion.div                      animate={(!reducedMotion && eventIsInView) ? {
-                        top: ["-100%", "200%"],
-                        left: ["-100%", "200%"],
-                      } : undefined}
-                      transition={!reducedMotion ? {
-                        duration: 8,
-                        repeat: Infinity,
-                        repeatDelay: 2,
-                        ease: "linear"
-                      } : undefined}
-                      className="absolute w-full h-[200%] bg-gradient-to-b from-transparent via-primary/5 to-transparent rotate-[35deg] blur-3xl"
-                    />
-                  </div>
-
-                  <div className="flex flex-col h-full relative z-10">
-                    {/* Full-width content for text-focused cards */}
-                    <div className="flex-1 p-8 lg:p-20 text-center flex flex-col items-center">
-                      <div className="mb-12">
-                        <motion.div 
-                          animate={!reducedMotion ? { scale: [1, 1.05, 1] } : undefined}
-                          transition={!reducedMotion ? { duration: 3, repeat: Infinity } : undefined}
-                          className="inline-flex items-center px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase mb-8" 
-                          style={{ backgroundColor: 'var(--primary)', color: 'var(--primary-foreground)' }}>
-                          <Sparkles className="w-4 h-4 mr-2" />
-                          {t('upcomingEventsTitle')}
-                        </motion.div>
-                        <p className="text-2xl font-bold mb-4 tracking-wide" style={{ color: 'var(--primary)' }}>
-                          {t(event.subtitleKey)}
-                        </p>
-                        <h3 className="text-4xl md:text-7xl lg:text-8xl font-title font-bold mb-8 leading-[1.1] tracking-tighter" style={{ color: 'var(--text-primary)' }}>
-                          {t(event.titleKey)}
-                        </h3>
-                      </div>
-
-                      <div className="mb-12 p-8 lg:p-12 rounded-[2.5rem] border bg-surface/30 backdrop-blur-md border-white/5 group-hover:border-primary/20 transition-all duration-500 shadow-inner max-w-4xl mx-auto w-full">
-                        <h4 className="text-2xl md:text-4xl font-bold mb-8 flex items-center justify-center leading-tight" style={{ color: 'var(--primary)' }}>
-                          <ArrowRight className="w-8 h-8 mr-4 text-secondary shrink-0" />
-                          {t(event.topicKey)}
-                        </h4>
-                        <p className="text-xl md:text-2xl leading-relaxed mb-12 opacity-90 font-medium max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-                          {t(event.descriptionKey)}
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                          <div className="flex flex-col items-center p-6 rounded-3xl bg-background/40 border border-white/5">
-                            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/10 shadow-lg mb-4" style={{ color: 'var(--primary)' }}>
-                              <Calendar className="w-7 h-7" />
-                            </div>
-                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1" style={{ color: 'var(--text-secondary)' }}>{t('eventDateLabel')}</p>
-                            <p className="text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{t(event.dateKey)}</p>
-                          </div>
-                          
-                          <div className="flex flex-col items-center p-6 rounded-3xl bg-background/40 border border-white/5">
-                            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/10 shadow-lg mb-4" style={{ color: 'var(--primary)' }}>
-                              <Clock className="w-7 h-7" />
-                            </div>
-                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1" style={{ color: 'var(--text-secondary)' }}>{t('eventTimeLabel')}</p>
-                            <p className="text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{t(event.timeKey)}</p>
-                          </div>
-
-                          <div className="flex flex-col items-center p-6 rounded-3xl bg-background/40 border border-white/5 md:col-span-2 lg:col-span-1">
-                            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-primary/10 shadow-lg mb-4" style={{ color: 'var(--primary)' }}>
-                              <MapPin className="w-7 h-7" />
-                            </div>
-                            <p className="text-xs font-black uppercase tracking-widest opacity-50 mb-1" style={{ color: 'var(--text-secondary)' }}>{t('eventLocationLabel')}</p>
-                            <p className="text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{t(event.locationKey)}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col items-center gap-10 w-full pt-12 border-t border-white/10">
-                        <p className="font-title text-2xl font-black tracking-[0.2em] uppercase" style={{ color: 'var(--text-primary)' }}>
-                          {t(event.footerKey)} 🚀
-                        </p>
-                        <motion.a
-                          whileHover={!reducedMotion ? { scale: 1.05, boxShadow: "0 0 40px rgba(124, 58, 237, 0.5)" } : undefined}
-                          whileTap={!reducedMotion ? { scale: 0.95 } : undefined}
-                          href={event.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full sm:w-auto inline-flex items-center justify-center px-16 py-8 text-2xl font-black text-white rounded-3xl shadow-2xl transition-all duration-300"
-                          style={{
-                            background: 'linear-gradient(135deg, var(--primary), var(--primary-light))'
-                          }}
-                        >
-                          {t('joinEvent')}
-                          <ExternalLink className="ml-4 w-8 h-8" aria-hidden="true" />
-                        </motion.a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
+        <motion.div
+          initial={reducedMotion ? false : { opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: reducedMotion ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="relative rounded-[2rem] p-12 md:p-16 text-center border-2 border-dashed overflow-hidden"
+          style={{
+            backgroundColor: 'var(--bg-secondary)',
+            borderColor: 'var(--border-light)'
+          }}
+        >
           <div
-            className="rounded-2xl p-12 text-center border-2 border-dashed"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-light)'
-            }}
+            className="w-20 h-20 mx-auto mb-8 rounded-3xl flex items-center justify-center"
+            style={{ backgroundColor: 'color-mix(in srgb, var(--primary) 12%, transparent)' }}
           >
             <Calendar
-              className="w-16 h-16 mx-auto mb-4"
+              className="w-10 h-10"
               style={{ color: 'var(--primary)' }}
+              aria-hidden="true"
             />
-            <h3
-              className="text-2xl font-title font-semibold mb-3"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              {t('noUpcomingEventsTitle')}
-            </h3>
-            <p
-              className="text-lg"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              {t('noUpcomingEventsText')}
-            </p>
           </div>
-        )}
+          <h3
+            className="text-2xl md:text-3xl font-title font-semibold mb-4"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            {t('noUpcomingEventsTitle')}
+          </h3>
+          <p
+            className="text-lg max-w-2xl mx-auto leading-relaxed"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            {t('noUpcomingEventsText')}
+          </p>
+        </motion.div>
       </div>
     </section>
   );

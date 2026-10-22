@@ -334,6 +334,8 @@ Esses itens ficam adiados conforme decisão atual e só devem ser retomados quan
 | 2026-08-19 | Correção de contraste no modo escuro | Textos e ícones da seção de próximos eventos e da seção de comunidade passaram a usar tokens explícitos de tema, corrigindo conteúdo que herdava preto no modo escuro. |
 | 2026-08-19 | Refinamento do dropdown de idioma | Dropdown redesenhado com superfície temática, animações Framer Motion, item selecionado, navegação por setas/Home/End, reduced motion e remoção do CSS legado. |
 | 2026-08-19 | Accordion fluido da comunidade | Cards da seção Junte-se passaram a usar `AnimatePresence` e `layout`, sincronizando fechamento/abertura e suavizando a movimentação da página sem alterar a função. |
+| 2026-10-22 | Novo evento: Semana de Engenharia Elétrica USP São Carlos | Card adicionado ao topo de Eventos Já Realizados com a foto da turma em `public/images/lacqf/lacq-usp-sao-carlos.webp`, reutilizando o molde existente (imagem, data e descrição expansível) e textos nos três locales. |
+| 2026-10-22 | Refinamentos de navegação e eventos | Efeito magnético removido da navbar, botões de Eventos Já Realizados arredondados (`rounded-full`), evento UNISO removido de Próximos Eventos com estado vazio "Fique atento para novos eventos", chaves/link do evento antigo eliminados e asset renomeado para `lacq-usp-sao-carlos.webp`. |
 
 ---
 

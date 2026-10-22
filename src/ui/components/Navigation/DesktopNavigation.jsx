@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
-import MagneticWrapper from '../MagneticWrapper';
 
 const DesktopNavigation = ({ routes, pathname }) => {
   const { t } = useLanguage();
@@ -15,25 +14,24 @@ const DesktopNavigation = ({ routes, pathname }) => {
       aria-label={t('mainMenuLabel')}
     >
       {routes.map((route) => (
-        <MagneticWrapper key={route.id} strength={0.2}>
-          <Link
-            href={route.path}
-            className="transition-all duration-200 focus:outline-none focus:rounded hover:text-primary relative py-1"
-            style={{
-              color: pathname === route.path ? 'var(--primary)' : 'var(--text)',
-              fontWeight: pathname === route.path ? '700' : '500'
-            }}
-            aria-current={pathname === route.path ? 'page' : undefined}
-          >
-            {t(route.labelKey)}
-            {pathname === route.path && (
-              <span 
-                className="absolute bottom-0 left-0 w-full h-0.5 rounded-full" 
-                style={{ backgroundColor: 'var(--primary)' }}
-              />
-            )}
-          </Link>
-        </MagneticWrapper>
+        <Link
+          key={route.id}
+          href={route.path}
+          className="transition-all duration-200 focus:outline-none focus:rounded hover:text-primary relative py-1"
+          style={{
+            color: pathname === route.path ? 'var(--primary)' : 'var(--text)',
+            fontWeight: pathname === route.path ? '700' : '500'
+          }}
+          aria-current={pathname === route.path ? 'page' : undefined}
+        >
+          {t(route.labelKey)}
+          {pathname === route.path && (
+            <span 
+              className="absolute bottom-0 left-0 w-full h-0.5 rounded-full" 
+              style={{ backgroundColor: 'var(--primary)' }}
+            />
+          )}
+        </Link>
       ))}
     </nav>
   );

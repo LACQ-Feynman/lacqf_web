@@ -10,6 +10,12 @@ import QuantumText from "./QuantumText";
 
 const events = [
   {
+    titleKey: "event5Title",
+    dateKey: "event5Date",
+    descriptionKey: "event5Description",
+    image: getAssetPath("/images/lacqf/lacq-usp-sao-carlos.webp"),
+  },
+  {
     titleKey: "conexaoLacqTitle",
     dateKey: "conexaoLacqDate",
     descriptionKey: "conexaoLacqDescription",
@@ -78,7 +84,7 @@ const EventCard = ({ event, index }) => {
                 href={event.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-lg shadow-md hover:shadow-lg transition"
+                className="inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-full shadow-md hover:shadow-lg transition"
                 style={{
                   background: 'linear-gradient(to right, var(--primary), var(--primary-dark))'
                 }}
@@ -93,7 +99,7 @@ const EventCard = ({ event, index }) => {
                 }
                 aria-expanded={isExpanded}
                 aria-controls={`event-panel-${index}`}
-                className="inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-lg shadow-md hover:shadow-lg transition cursor-pointer"
+                className="inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-full shadow-md hover:shadow-lg transition cursor-pointer"
                 style={{
                   background: 'linear-gradient(to right, var(--primary), var(--primary-dark))'
                 }}
