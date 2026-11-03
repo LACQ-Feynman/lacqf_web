@@ -10,4 +10,5 @@ export const EXTERNAL_LINKS = {
   materials: 'https://shorturl.at/BVmTs',
   quantumCoalition: 'https://www.quantumcoalition.io/',
   feynmanLegacy: 'https://pt.wikipedia.org/wiki/Richard_Feynman',
+  qiskitFallFestLive: 'https://www.youtube.com/live/SDY9i3oQvag',
 };
